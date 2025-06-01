@@ -1,0 +1,30 @@
+package com.Classy.services;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+
+@Service
+public class JwtService {
+
+    @Value("${JWT_SECRET}")
+    private String SECRET;
+
+    private SecretKey getKey() {
+        return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public String generateToken(String subject, int minutesValid) {
+        return Jwts.builder()
+                .setSubject(subject)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + minutesValid * 60 * 1000L))
+                .signWith(getKey())
+                .compact();
+    }
+}
