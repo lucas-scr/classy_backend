@@ -66,8 +66,8 @@ public class Contrato {
     @NotNull(message = "Informe a opção por ressarcimento")
     private boolean ressarcimentoEmFeriados;
 
-    @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
-    private List<DiasDaAula> listaDeAulas = new ArrayList<>();
+     @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
+     private List<DiasDaAula> listaDeAulas = new ArrayList<>();
 
 
     @CreationTimestamp
