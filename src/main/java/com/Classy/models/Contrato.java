@@ -1,8 +1,6 @@
 package com.Classy.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -13,20 +11,24 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "contratos")
 public class Contrato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nome_responsavel", nullable = false, length = 150)
     @NotBlank(message = "O nome é obrigatório")
     private String nomeResponsavel;
 
+    @Column(name = "documento_responsavel", nullable = false, length = 14)
     @NotNull(message = "O documento é obrigatório")
     private String documentoResponsavel;
 
+
     @NotNull(message = "O telefone é obrigatório")
-    private Long telefoneResponsavel;
+    private String telefoneResponsavel;
 
     @NotNull()
     private Aluno aluno;
