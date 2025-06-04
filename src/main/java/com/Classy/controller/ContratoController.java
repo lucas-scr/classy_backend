@@ -1,16 +1,15 @@
 package com.Classy.controller;
 
-import com.Classy.models.Contrato;
-import com.Classy.repositorys.ContratoRepository;
+import com.Classy.DTO.ContratoDTO;
+import com.Classy.entitys.Contrato;
 import com.Classy.services.ContratoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/contratos")
@@ -22,8 +21,10 @@ public class ContratoController {
 
     // Cadastrar contrato
     @PostMapping
-    public Contrato cadastrarContrato(@Valid @RequestBody Contrato contrato){
-        return contratoService.cadastrarContrato(contrato);
+    public ResponseEntity<ContratoDTO> cadastrarContrato(@Valid @RequestBody ContratoDTO contrato){
+        ContratoDTO contratoSalvo = contratoService.cadastrarContrato(contrato);
+        URI location = URI.create("/contratos/" + contratoSalvo.getId());
+        return ResponseEntity.created().body(contrato);
     }
 
     @GetMapping
@@ -34,13 +35,13 @@ public class ContratoController {
 
     // Consultar contrato por id
     @GetMapping("/{id}")
-    public ResponseEntity<Contrato> buscarContrato(@PathVariable Long id){
+    public ResponseEntity<ContratoDTO> buscarContrato(@PathVariable Long id){
         return contratoService.buscarPorId(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     // Atualizar contrato
     @PutMapping("/{id}")
-    public ResponseEntity<Contrato> atualizarContrato(@PathVariable Long id, @Valid @RequestBody Contrato contratoAtualizado){
+    public ResponseEntity<ContratoDTO> atualizarContrato(@PathVariable Long id, @Valid @RequestBody ContratoDTO contratoAtualizado){
         return contratoService.atualizarContrato(id, contratoAtualizado).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 

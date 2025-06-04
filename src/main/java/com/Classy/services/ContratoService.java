@@ -1,13 +1,16 @@
 package com.Classy.services;
 
-import com.Classy.models.Contrato;
+import com.Classy.DTO.ContratoDTO;
+import com.Classy.entitys.Contrato;
+import com.Classy.mappers.ContratoMapper;
 import com.Classy.repositorys.ContratoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 public class ContratoService {
@@ -15,21 +18,30 @@ public class ContratoService {
     @Autowired
     private ContratoRepository contratoRepository;
 
-    public Contrato cadastrarContrato(Contrato contrato){
-        return contratoRepository.save(contrato);
+    public ContratoDTO cadastrarContrato(ContratoDTO contrato){
+
+        // converter o DTO para o Entity
+
+
+        //salvar no banco
+        return ContratoMapper.toDTO(contratoRepository.save(contrato));
+
     }
 
-    public List<Contrato> listarContratos(){
-        return contratoRepository.findAll();
+    public List<ContratoDTO> listarContratos(){
+        return contratoRepository.findAll().stream()
+                .map(ContratoMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Contrato> buscarPorId(Long id){
-        return contratoRepository.findById(id);
+    public Optional<ContratoDTO> buscarPorId(Long id){
+        return contratoRepository.findById(id).map(ContratoMapper::toDTO);
     }
 
-    public Optional<Contrato> atualizarContrato(Long id, Contrato contratoatualizado){
+    public Optional<ContratoDTO> atualizarContrato(Long id, ContratoDTO contratoatualizadoDto){
         return contratoRepository.findById(id).map(contrato -> {
-           return contratoRepository.save(contrato);
+            contratoRepository.save(contrato);
+           return ContratoMapper.toDTO(contrato);
         });
     }
 
