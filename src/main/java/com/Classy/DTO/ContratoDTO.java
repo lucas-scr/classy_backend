@@ -1,8 +1,11 @@
 package com.Classy.DTO;
 
+import com.Classy.entitys.Contato;
 import com.Classy.entitys.DiasDaAula;
+import com.google.api.client.util.DateTime;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -11,14 +14,22 @@ public class ContratoDTO {
     private String nomeResponsavel;
     private String documentoResponsavel;
     private String telefoneResponsavelPrincipal;
+
+
+    private List<Contato> listaContatos;
     private String nomeAluno;
     private boolean isDiasAlternados;
     private Date dataInicio;
-    private Integer dataPagamento;
+    private Integer diaPagamento;
     private BigDecimal valorPagamento;
     private boolean autorizaUsoDeImagem;
     private boolean ressarcimentoEmFeriados;
     private List<DiasDaAula> diasDasAulas;
+    private LocalDateTime dataCriacao;
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
 
     public Long getId() {
         return id;
@@ -76,12 +87,12 @@ public class ContratoDTO {
         this.dataInicio = dataInicio;
     }
 
-    public Integer getDataPagamento() {
-        return dataPagamento;
+    public Integer getDiaPagamento() {
+        return diaPagamento;
     }
 
-    public void setDataPagamento(Integer dataPagamento) {
-        this.dataPagamento = dataPagamento;
+    public void setDiaPagamento(Integer dataPagamento) {
+        this.diaPagamento = dataPagamento;
     }
 
     public BigDecimal getValorPagamento() {
@@ -115,4 +126,15 @@ public class ContratoDTO {
     public void setDiasDasAulas(List<DiasDaAula> diasDasAulas) {
         this.diasDasAulas = diasDasAulas;
     }
+
+    public List<Contato> getListaContatos() {
+        return listaContatos;
+    }
+
+    public void setListaContatos(List<Contato> listaContatos) {
+        this.listaContatos = listaContatos;
+    }
+
+
+
 }

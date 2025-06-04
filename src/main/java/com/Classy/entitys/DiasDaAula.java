@@ -24,7 +24,7 @@ public class DiasDaAula {
 
     @ManyToOne
     @JoinColumn(name = "id_aluno", nullable = false)
-    private Long aluno;
+    private Aluno aluno;
 
 
     public Integer getDiaDaSemana() {
@@ -51,11 +51,11 @@ public class DiasDaAula {
         this.id = id;
     }
 
-    public Long getAluno() {
+    public Aluno getAluno() {
         return aluno;
     }
 
-    public void setAluno(Long aluno) {
+    public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
 }

@@ -6,9 +6,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +35,7 @@ public class Contrato {
 
     @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
     @NotEmpty
-    private List<Contato> telefoneResponsavel;
+    private List<Contato> listaContatos = new ArrayList<>();
 
     @OneToOne(mappedBy = "contrato", cascade = CascadeType.ALL)
     @NotNull(message = "O aluno é obrigatório")
@@ -64,7 +68,100 @@ public class Contrato {
     @NotNull(message = "Informe a opção por ressarcimento")
     private boolean ressarcimentoEmFeriados;
 
-    @Column(name = "data_criacao", nullable = false)
-    private DateTime dataCriacao;
+    @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
+    private List<DiasDaAula> listaDeAulas = new ArrayList<>();
+
+
+    @CreationTimestamp
+    @Column(name = "data_criacao", nullable = false, updatable = false)
+    private LocalDateTime dataCriacao;
+
+    public Long getId() {
+        return id;
+    }
+
+    public boolean isRessarcimentoEmFeriados() {
+        return ressarcimentoEmFeriados;
+    }
+
+    public void setRessarcimentoEmFeriados(boolean ressarcimentoEmFeriados) {
+        this.ressarcimentoEmFeriados = ressarcimentoEmFeriados;
+    }
+
+    public boolean isAutorizaUsoDeImagem() {
+        return autorizaUsoDeImagem;
+    }
+
+    public void setAutorizaUsoDeImagem(boolean autorizaUsoDeImagem) {
+        this.autorizaUsoDeImagem = autorizaUsoDeImagem;
+    }
+
+    public BigDecimal getValorPagamento() {
+        return valorPagamento;
+    }
+
+    public void setValorPagamento(BigDecimal valorPagamento) {
+        this.valorPagamento = valorPagamento;
+    }
+
+    public Integer getDiaPagamento() {
+        return diaPagamento;
+    }
+
+    public void setDiaPagamento(Integer diaPagamento) {
+        this.diaPagamento = diaPagamento;
+    }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public boolean isDiasAlternados() {
+        return isDiasAlternados;
+    }
+
+    public void setDiasAlternados(boolean diasAlternados) {
+        isDiasAlternados = diasAlternados;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public List<Contato> getListaContatos() {
+        return listaContatos;
+    }
+
+    public void setListaContatos(List<Contato> listaContatos) {
+        this.listaContatos = listaContatos;
+    }
+
+    public String getDocumentoResponsavel() {
+        return documentoResponsavel;
+    }
+
+    public void setDocumentoResponsavel(String documentoResponsavel) {
+        this.documentoResponsavel = documentoResponsavel;
+    }
+
+    public String getNomeResponsavel() {
+        return nomeResponsavel;
+    }
+
+    public void setNomeResponsavel(String nomeResponsavel) {
+        this.nomeResponsavel = nomeResponsavel;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
 
 }

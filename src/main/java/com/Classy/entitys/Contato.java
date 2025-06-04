@@ -21,7 +21,7 @@ public class Contato {
 
     @ManyToOne
     @JoinColumn(name = "id_contrato", nullable = false)
-    private Long contrato;
+    private Contrato contrato;
 
     @Column(name = "contato_principal", nullable = false)
     @NotNull(message = "O indicador de principal é obrigatório")

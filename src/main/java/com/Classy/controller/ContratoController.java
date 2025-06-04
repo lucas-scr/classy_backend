@@ -21,15 +21,15 @@ public class ContratoController {
 
     // Cadastrar contrato
     @PostMapping
-    public ResponseEntity<ContratoDTO> cadastrarContrato(@Valid @RequestBody ContratoDTO contrato){
-        ContratoDTO contratoSalvo = contratoService.cadastrarContrato(contrato);
+    public ResponseEntity<ContratoDTO> cadastrarContrato(@Valid @RequestBody ContratoDTO contratoDto){
+        ContratoDTO contratoSalvo = contratoService.cadastrarContrato(contratoDto);
         URI location = URI.create("/contratos/" + contratoSalvo.getId());
-        return ResponseEntity.created().body(contrato);
+        return ResponseEntity.created(location).body(contratoSalvo);
     }
 
     @GetMapping
-    public ResponseEntity<List<Contrato>> buscarContrato(){
-        List<Contrato> contratos = contratoService.listarContratos();
+    public ResponseEntity<List<ContratoDTO>> buscarContrato(){
+        List<ContratoDTO> contratos = contratoService.listarContratos();
         return ResponseEntity.ok(contratos);
     }
 
