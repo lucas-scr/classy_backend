@@ -1,5 +1,6 @@
 package com.Classy.DTO;
 
+import com.Classy.entitys.Aluno;
 import com.Classy.entitys.Contato;
 import com.Classy.entitys.DiasDaAula;
 import com.google.api.client.util.DateTime;
@@ -14,10 +15,8 @@ public class ContratoDTO {
     private String nomeResponsavel;
     private String documentoResponsavel;
     private String telefoneResponsavelPrincipal;
-
-
     private List<Contato> listaContatos;
-    private String nomeAluno;
+    private Aluno aluno;
     private boolean isDiasAlternados;
     private Date dataInicio;
     private Integer diaPagamento;
@@ -63,12 +62,12 @@ public class ContratoDTO {
         this.telefoneResponsavelPrincipal = telefoneResponsavelPrincipal;
     }
 
-    public String getNomeAluno() {
-        return nomeAluno;
+    public Aluno getAluno() {
+        return aluno;
     }
 
-    public void setNomeAluno(String nomeAluno) {
-        this.nomeAluno = nomeAluno;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     public boolean isDiasAlternados() {

@@ -26,6 +26,10 @@ public class DiasDaAula {
     @JoinColumn(name = "id_aluno", nullable = false)
     private Aluno aluno;
 
+    @ManyToOne
+    @JoinColumn(name = "id_contrato")
+    private Contrato contrato;
+
 
     public Integer getDiaDaSemana() {
         return diaDaSemana;

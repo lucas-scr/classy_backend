@@ -12,12 +12,15 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(name = "nome", nullable = false, length = 150)
     private String nome;
 
+    @Column(name = "data_nascimento", nullable = false)
+    private Date dataNascimento;
+
     @OneToOne
-    @Column(name = "id_contrato")
-    private Long contrato;
+    @JoinColumn(name = "id_contrato")
+    private Contrato contrato;
 
 
     public Date getDataNascimento() {
@@ -36,5 +39,12 @@ public class Aluno {
         this.nome = nome;
     }
 
-    private Date dataNascimento;
+    public Contrato getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(Contrato contrato) {
+        this.contrato = contrato;
+    }
+
 }

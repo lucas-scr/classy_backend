@@ -27,4 +27,35 @@ public class Contato {
     @NotNull(message = "O indicador de principal é obrigatório")
     private Boolean isPrincipal;
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public Contrato getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(Contrato contrato) {
+        this.contrato = contrato;
+    }
+
+    public Boolean getPrincipal() {
+        return isPrincipal;
+    }
+
+    public void setPrincipal(Boolean principal) {
+        isPrincipal = principal;
+    }
 }

@@ -21,10 +21,10 @@ public class ContratoService {
     public ContratoDTO cadastrarContrato(ContratoDTO contrato){
 
         // converter o DTO para o Entity
-
+        Contrato contratoEntity = ContratoMapper.toEntity(contrato);
 
         //salvar no banco
-        return ContratoMapper.toDTO(contratoRepository.save(contrato));
+        return ContratoMapper.toDTO(contratoRepository.save(contratoEntity));
 
     }
 

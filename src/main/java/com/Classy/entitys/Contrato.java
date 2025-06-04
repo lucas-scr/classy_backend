@@ -1,14 +1,12 @@
 package com.Classy.entitys;
 
-import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.cglib.core.Local;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -164,4 +162,11 @@ public class Contrato {
         return dataCriacao;
     }
 
+    public List<DiasDaAula> getListaDeAulas() {
+        return listaDeAulas;
+    }
+
+    public void setListaDeAulas(List<DiasDaAula> listaDeAulas) {
+        this.listaDeAulas = listaDeAulas;
+    }
 }
