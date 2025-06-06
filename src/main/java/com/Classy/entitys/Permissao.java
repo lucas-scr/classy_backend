@@ -11,9 +11,8 @@ public class Permissao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne()
-    @JoinColumn(name = "id_permissao", nullable = false)
-    private Long permissao;
+    @Column(name = "permissao", nullable = false)
+    private String permissao;
 
     public Long getId() {
         return id;
@@ -21,9 +20,5 @@ public class Permissao {
 
     public String getPermissao() {
         return permissao;
-    }
-
-    public void setPermissao(String permissao) {
-        this.permissao = permissao;
     }
 }

@@ -3,7 +3,6 @@ package com.Classy.entitys;
 import com.Classy.util.ProvedorAutenticacao;
 import jakarta.persistence.*;
 
-import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class Usuario {
             joinColumns = @JoinColumn(name= "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_permissao")
     )
-    private List<Role> roles = new ArrayList<>();
+    private List<Permissao> roles = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -71,11 +70,11 @@ public class Usuario {
         this.provedor = provedor;
     }
 
-    public List<Role> getRoles() {
+    public List<Permissao> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<Permissao> roles) {
         this.roles = roles;
     }
 }
