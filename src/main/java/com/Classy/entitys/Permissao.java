@@ -12,6 +12,7 @@ public class Permissao {
     private Long id;
 
     @Column(name = "permissao", nullable = false)
+    @Enumerated(EnumType.STRING)
     private String permissao;
 
     public Long getId() {
@@ -20,5 +21,9 @@ public class Permissao {
 
     public String getPermissao() {
         return permissao;
+    }
+
+    public void setPermissao(String permissao) {
+        this.permissao = permissao;
     }
 }

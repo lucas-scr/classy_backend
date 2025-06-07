@@ -26,13 +26,13 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private ProvedorAutenticacao provedor;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "permissoes_usuarios",
             joinColumns = @JoinColumn(name= "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_permissao")
     )
-    private List<Permissao> roles = new ArrayList<>();
+    private List<Permissao> permissoes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -70,11 +70,11 @@ public class Usuario {
         this.provedor = provedor;
     }
 
-    public List<Permissao> getRoles() {
-        return roles;
+    public List<Permissao> getPermissoes() {
+        return permissoes;
     }
 
-    public void setRoles(List<Permissao> roles) {
-        this.roles = roles;
+    public void setPermissoes(List<Permissao> permissoes) {
+        this.permissoes = permissoes ;
     }
 }
