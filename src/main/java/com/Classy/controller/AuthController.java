@@ -1,7 +1,8 @@
 package com.Classy.controller;
 
+import com.Classy.DTO.TokenRequest;
+import com.Classy.DTO.TokenResponse;
 import com.Classy.DTO.UsuarioDTO;
-import com.Classy.entitys.Permissao;
 import com.Classy.services.GoogleTokenVerifierService;
 import com.Classy.services.JwtService;
 import com.Classy.services.UsuarioService;
@@ -37,19 +38,18 @@ public class AuthController {
         if (idToken != null) {
             var payload = idToken.getPayload();
             String userId = payload.getSubject();
-            String email = payload.getEmail();
-            String nome = (String) payload.get("name");
+
+            UsuarioDTO usuarioLogado = new UsuarioDTO();
+            usuarioLogado.setEmail(payload.getEmail());
+            usuarioLogado.setNome((String) payload.get("name"));
+            usuarioLogado.setProvedor(ProvedorAutenticacao.GOOGLE);
 
             Map<String, Object> claims = new HashMap<>();
-            claims.put("email", email);
+            claims.put("email", usuarioLogado.getEmail());
             String jwt = jwtService.generateToken(userId, 60, claims);
 
-            if(!usuarioService.verificarExistenciaUsuario(email)){
-                UsuarioDTO novoUsuario = new UsuarioDTO();
-                novoUsuario.setNome(nome);
-                novoUsuario.setProvedor(ProvedorAutenticacao.GOOGLE);
-                novoUsuario.setEmail(email);
-                novoUsuario.adicionarPermissao(EnumPermissoes.ROLE_USER);
+            if(!usuarioService.verificarExistenciaUsuario(usuarioLogado.getEmail())){
+                usuarioService.cadastrarUsuarioGoogle(usuarioLogado);
             }
 
             System.out.println(jwt);
@@ -58,18 +58,4 @@ public class AuthController {
         throw new GeneralSecurityException("Token inválido");
     }
 
-    public static class TokenRequest {
-        private String token;
-
-        public String getToken() { return token; }
-        public void setToken(String token) { this.token = token; }
-    }
-
-    public static class TokenResponse {
-        private String token;
-
-        public TokenResponse(String token) { this.token = token; }
-        public String getToken() { return token; }
-        public void setToken(String token) { this.token = token; }
-    }
 }

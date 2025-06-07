@@ -1,6 +1,7 @@
 package com.Classy.entitys;
 
 
+import com.Classy.util.EnumPermissoes;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,17 +14,18 @@ public class Permissao {
 
     @Column(name = "permissao", nullable = false)
     @Enumerated(EnumType.STRING)
-    private String permissao;
+    private EnumPermissoes permissao;
+
 
     public Long getId() {
         return id;
     }
 
-    public String getPermissao() {
+    public EnumPermissoes getPermissao() {
         return permissao;
     }
 
-    public void setPermissao(String permissao) {
+    public void setPermissao(EnumPermissoes permissao) {
         this.permissao = permissao;
     }
 }

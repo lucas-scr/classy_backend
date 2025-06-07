@@ -11,7 +11,7 @@ public class UsuarioDTO {
     private String email;
     private String senha;
     private ProvedorAutenticacao provedor;
-    private List<EnumPermissoes> permissoes;
+    private List<Permissao> permissoes;
 
     public String getEmail() {
         return email;
@@ -45,11 +45,11 @@ public class UsuarioDTO {
         this.provedor = provedor;
     }
 
-    public void adicionarPermissao(EnumPermissoes permissao){
+    public void adicionarPermissao(Permissao permissao){
         this.permissoes.add(permissao);
     }
 
-    public List<EnumPermissoes> getPermissoes() {
+    public List<Permissao> getPermissoes() {
         return permissoes;
     }
 }
