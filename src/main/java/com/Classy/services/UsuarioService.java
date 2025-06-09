@@ -30,13 +30,10 @@ public class UsuarioService implements UserDetailsService {
 
 
     public UsuarioDTO cadastrarUsuarioGoogle(UsuarioDTO usuarioDto){
-
         Optional<Usuario> usuarioExistente = repository.findByEmail(usuarioDto.getEmail());
-
         if(usuarioExistente.isPresent()){
             return UsuarioMapper.toDTO(usuarioExistente.get());
         }
-
         Permissao permissao = permissaoRepository.findByPermissao(EnumPermissoes.ROLE_USER).orElseThrow(()-> new RuntimeException("Permissão não encontrada"));
         usuarioDto.adicionarPermissao(permissao);
         Usuario usuarioEntity = UsuarioMapper.toEntity(usuarioDto);
@@ -44,7 +41,7 @@ public class UsuarioService implements UserDetailsService {
     }
 
     public Boolean verificarExistenciaUsuario(String email){
-       return repository.existsByEmail(email);
+        return repository.existsByEmail(email);
     }
 
     public UserDetails carregarUsuarioPorEmail(String email) throws UsernameNotFoundException {

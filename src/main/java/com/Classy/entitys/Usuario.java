@@ -24,6 +24,7 @@ public class Usuario {
     private String senha;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "provedor")
     private ProvedorAutenticacao provedor;
 
     @ManyToMany(fetch = FetchType.EAGER)

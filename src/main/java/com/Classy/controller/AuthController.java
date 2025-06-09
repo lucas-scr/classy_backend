@@ -8,10 +8,12 @@ import com.Classy.services.JwtService;
 import com.Classy.services.UsuarioService;
 import com.Classy.util.ProvedorAutenticacao;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,12 +25,13 @@ public class AuthController {
 
     private GoogleIdTokenVerifier verifier;
     private final JwtService jwtService;
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
     private final GoogleTokenVerifierService googleTokenVerifierService;
 
-    public AuthController (JwtService jwtService, GoogleTokenVerifierService googleTokenVerifierService){
+    public AuthController (JwtService jwtService, GoogleTokenVerifierService googleTokenVerifierService, UsuarioService usuarioService){
         this.jwtService = jwtService;
         this.googleTokenVerifierService = googleTokenVerifierService;
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping("/google")
@@ -45,7 +48,9 @@ public class AuthController {
 
             Map<String, Object> claims = new HashMap<>();
             claims.put("email", usuarioLogado.getEmail());
+            claims.put("roles", List.of("ROLE_USER"));
             String jwt = jwtService.gerarToken(userId, 60, claims);
+            System.out.println(usuarioLogado.getEmail() + " usuario");
 
             if(!usuarioService.verificarExistenciaUsuario(usuarioLogado.getEmail())){
                 usuarioService.cadastrarUsuarioGoogle(usuarioLogado);

@@ -4,6 +4,7 @@ import com.Classy.entitys.Permissao;
 import com.Classy.util.EnumPermissoes;
 import com.Classy.util.ProvedorAutenticacao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDTO {
@@ -11,7 +12,7 @@ public class UsuarioDTO {
     private String email;
     private String senha;
     private ProvedorAutenticacao provedor;
-    private List<Permissao> permissoes;
+    private List<Permissao> permissoes = new ArrayList<>();
 
     public String getEmail() {
         return email;

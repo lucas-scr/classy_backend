@@ -8,18 +8,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    @Value("${JWT_SECRET}")
-    String JWT_SECRET;
+    private String JWT_SECRET;
 
+    public JwtAuthFilter(String secret){
+        this.JWT_SECRET = secret;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -39,8 +45,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
                 String userId = claims.getSubject();
 
+                List<String> permissoes = claims.get("roles", List.class);
+                List<GrantedAuthority> autorizacoes = new ArrayList<>();
+
+                if (permissoes != null){
+                    for(String permissao: permissoes){
+                        autorizacoes.add(new SimpleGrantedAuthority(permissao));
+                    }
+                }
+
                 UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(userId, null, Collections.emptyList());
+                        new UsernamePasswordAuthenticationToken(userId, null, autorizacoes);
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
