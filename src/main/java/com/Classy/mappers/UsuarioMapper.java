@@ -11,7 +11,7 @@ public class UsuarioMapper {
         usuarioDTO.setNome(usuario.getNome());
         usuarioDTO.setEmail(usuario.getSenha());
         usuarioDTO.setProvedor(usuario.getProvedor());
-      //  usuario.getPermissoes().forEach(usuarioDTO::adicionarPermissao);
+        usuario.getPermissoes().forEach(usuarioDTO::adicionarPermissao);
         return usuarioDTO;
     }
 
@@ -20,7 +20,7 @@ public class UsuarioMapper {
         usuario.setEmail(usuarioDTO.getEmail());
         usuario.setNome(usuarioDTO.getNome());
         usuario.setSenha(usuarioDTO.getSenha());
-       // usuario.setPermissoes(usuarioDTO.getPermissoes());
+        usuario.setPermissoes(usuarioDTO.getPermissoes());
         usuario.setProvedor(usuarioDTO.getProvedor());
         return usuario;
     }

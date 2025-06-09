@@ -18,6 +18,7 @@ public class SecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/contratos/").hasRole("ROLE_USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthFilter(), org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);

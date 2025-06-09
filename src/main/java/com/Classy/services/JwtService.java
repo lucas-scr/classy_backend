@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String subject, int minutesValid, Map<String, Object> claims) {
+    public String gerarToken(String subject, int minutesValid, Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
@@ -32,5 +33,13 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + minutesValid * 60 * 1000L))
                 .signWith(getKey())
                 .compact();
+    }
+    public String validateTokenAndGetEmail(String token) {
+        Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
+        return Jwts.parser()
+                .setSigningKey(key)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 }

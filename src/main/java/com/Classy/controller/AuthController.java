@@ -6,7 +6,6 @@ import com.Classy.DTO.UsuarioDTO;
 import com.Classy.services.GoogleTokenVerifierService;
 import com.Classy.services.JwtService;
 import com.Classy.services.UsuarioService;
-import com.Classy.util.EnumPermissoes;
 import com.Classy.util.ProvedorAutenticacao;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +45,7 @@ public class AuthController {
 
             Map<String, Object> claims = new HashMap<>();
             claims.put("email", usuarioLogado.getEmail());
-            String jwt = jwtService.generateToken(userId, 60, claims);
+            String jwt = jwtService.gerarToken(userId, 60, claims);
 
             if(!usuarioService.verificarExistenciaUsuario(usuarioLogado.getEmail())){
                 usuarioService.cadastrarUsuarioGoogle(usuarioLogado);
