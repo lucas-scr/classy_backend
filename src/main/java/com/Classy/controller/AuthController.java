@@ -49,7 +49,7 @@ public class AuthController {
             Map<String, Object> claims = new HashMap<>();
             claims.put("email", usuarioLogado.getEmail());
             claims.put("roles", List.of("ROLE_USER"));
-            String jwt = jwtService.gerarToken(userId, 60, claims);
+            String jwt = jwtService.gerarToken(userId, 1, claims);
             System.out.println(usuarioLogado.getEmail() + " usuario");
 
             if(!usuarioService.verificarExistenciaUsuario(usuarioLogado.getEmail())){

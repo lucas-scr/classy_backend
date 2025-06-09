@@ -38,7 +38,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String jwt = authHeader.substring(7);
             try {
                 Claims claims = Jwts.parserBuilder()
-                        .setSigningKey(JWT_SECRET)
+                        .setSigningKey(JWT_SECRET.getBytes(StandardCharsets.UTF_8))
                         .build()
                         .parseClaimsJws(jwt)
                         .getBody();
@@ -48,10 +48,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 List<String> permissoes = claims.get("roles", List.class);
                 List<GrantedAuthority> autorizacoes = new ArrayList<>();
 
+                System.out.println("Claims: " + claims);
+                System.out.println("Roles extraídas: " + permissoes);
+
+
                 if (permissoes != null){
                     for(String permissao: permissoes){
                         autorizacoes.add(new SimpleGrantedAuthority(permissao));
                     }
+                    System.out.println("Autorizacoes montadas: " + autorizacoes);
                 }
 
                 UsernamePasswordAuthenticationToken authentication =
@@ -60,11 +65,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
             } catch (Exception e) {
+                System.out.println(e);
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
         }
-
         filterChain.doFilter(request, response);
     }
+
 }
