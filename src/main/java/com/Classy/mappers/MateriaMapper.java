@@ -18,7 +18,7 @@ public class MateriaMapper {
          return materiaDTO;
      }
 
-     public  static Materia toEntity(MateriaDTO materiaDTO){
+     public static Materia toEntity(MateriaDTO materiaDTO){
          Materia materia = new Materia();
          materia.setNome(materiaDTO.getNome());
          return materia;
