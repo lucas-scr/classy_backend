@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.HashMap;
@@ -32,4 +33,12 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(EntidadeDuplicadaException.class)
+    public  ResponseEntity<Map<String, String>> handleEntidadeDuplicada(EntidadeDuplicadaException ex){
+        Map<String, String> erro = new HashMap<>();
+        erro.put("erro", ex.getMessage());
+        return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
+    }
+
 }
