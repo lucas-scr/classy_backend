@@ -4,6 +4,8 @@ import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "materia")
 public class Materia {
@@ -19,7 +21,7 @@ public class Materia {
 
 
     @Column(name = "data_criacao", nullable = false)
-    private DateTime dataCriacao;
+    private LocalDateTime  dataCriacao;
 
     public Long getId() {
         return id;
@@ -34,11 +36,14 @@ public class Materia {
         this.nome = nome;
     }
 
-    public DateTime getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(DateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
+    @PrePersist
+    public void setDataCriacao() {
+        this.dataCriacao = LocalDateTime.now();
     }
+
+
 }
