@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService implements UserDetailsService {
+public class ServiceUsuario implements UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;

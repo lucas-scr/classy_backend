@@ -3,19 +3,16 @@ package com.Classy.services;
 import com.Classy.DTO.MateriaDTO;
 import com.Classy.entitys.Materia;
 import com.Classy.exception.EntidadeDuplicadaException;
-import com.Classy.exception.GlobalExceptionHandler;
 import com.Classy.mappers.MateriaMapper;
 import com.Classy.repositorys.MateriaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class MateriaService {
+public class ServiceMateria {
 
     private MateriaRepository repository;
 
@@ -41,8 +38,11 @@ public class MateriaService {
         return MateriaMapper.toDTO(materia);
     }
 
-    public Boolean deletarMateria(Long id){
+    public void deletarMateria(Long id){
+        boolean existe = repository.existsById(id);
+        if (!existe) {
+            throw new EntityNotFoundException("Materia não encontrada.");
+        }
         repository.deleteById(id);
-        return true;
     }
 }

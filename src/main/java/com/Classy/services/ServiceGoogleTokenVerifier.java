@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
-public class GoogleTokenVerifierService {
+public class ServiceGoogleTokenVerifier {
 
     private final GoogleIdTokenVerifier verifier;
 
-    public GoogleTokenVerifierService(@Value("${GOOGLE_CLIENT_ID}") String clientId){
+    public ServiceGoogleTokenVerifier(@Value("${GOOGLE_CLIENT_ID}") String clientId){
         this.verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(),
                 JacksonFactory.getDefaultInstance())
                 .setAudience(Collections.singletonList(clientId)).build();

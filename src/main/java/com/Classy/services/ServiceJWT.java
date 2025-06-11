@@ -12,12 +12,12 @@ import java.util.Date;
 import java.util.Map;
 
 @Service
-public class JwtService {
+public class ServiceJWT {
 
 
     private String SECRET;
 
-    public JwtService(@Value("${JWT_SECRET}") String secret){
+    public ServiceJWT(@Value("${JWT_SECRET}") String secret){
         this.SECRET = secret;
     }
 

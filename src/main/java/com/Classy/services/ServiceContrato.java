@@ -2,18 +2,19 @@ package com.Classy.services;
 
 import com.Classy.DTO.ContratoDTO;
 import com.Classy.entitys.Contrato;
+import com.Classy.entitys.Materia;
 import com.Classy.mappers.ContratoMapper;
 import com.Classy.repositorys.ContratoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
-public class ContratoService {
+public class ServiceContrato {
 
     @Autowired
     private ContratoRepository contratoRepository;
@@ -34,8 +35,9 @@ public class ContratoService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<ContratoDTO> buscarPorId(Long id){
-        return contratoRepository.findById(id).map(ContratoMapper::toDTO);
+    public ContratoDTO buscarPorId(Long id){
+        Contrato contrato = contratoRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Contrato não encontrado."));
+        return ContratoMapper.toDTO(contrato);
     }
 
     public Optional<ContratoDTO> atualizarContrato(Long id, ContratoDTO contratoatualizadoDto){

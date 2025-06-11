@@ -3,12 +3,11 @@ package com.Classy.controller;
 import com.Classy.DTO.TokenRequest;
 import com.Classy.DTO.TokenResponse;
 import com.Classy.DTO.UsuarioDTO;
-import com.Classy.services.GoogleTokenVerifierService;
-import com.Classy.services.JwtService;
-import com.Classy.services.UsuarioService;
+import com.Classy.services.ServiceGoogleTokenVerifier;
+import com.Classy.services.ServiceJWT;
+import com.Classy.services.ServiceUsuario;
 import com.Classy.util.ProvedorAutenticacao;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.GeneralSecurityException;
@@ -24,19 +23,19 @@ public class AuthController {
 
 
     private GoogleIdTokenVerifier verifier;
-    private final JwtService jwtService;
-    private final UsuarioService usuarioService;
-    private final GoogleTokenVerifierService googleTokenVerifierService;
+    private final ServiceJWT serviceJWT;
+    private final ServiceUsuario serviceUsuario;
+    private final ServiceGoogleTokenVerifier serviceGoogleTokenVerifier;
 
-    public AuthController (JwtService jwtService, GoogleTokenVerifierService googleTokenVerifierService, UsuarioService usuarioService){
-        this.jwtService = jwtService;
-        this.googleTokenVerifierService = googleTokenVerifierService;
-        this.usuarioService = usuarioService;
+    public AuthController (ServiceJWT serviceJWT, ServiceGoogleTokenVerifier serviceGoogleTokenVerifier, ServiceUsuario serviceUsuario){
+        this.serviceJWT = serviceJWT;
+        this.serviceGoogleTokenVerifier = serviceGoogleTokenVerifier;
+        this.serviceUsuario = serviceUsuario;
     }
 
     @PostMapping("/google")
     public TokenResponse googleLogin(@RequestBody TokenRequest tokenRequest) throws GeneralSecurityException, java.io.IOException, Exception {
-        var idToken = googleTokenVerifierService.verify(tokenRequest.getToken());
+        var idToken = serviceGoogleTokenVerifier.verify(tokenRequest.getToken());
         if (idToken != null) {
             var payload = idToken.getPayload();
             String userId = payload.getSubject();
@@ -49,11 +48,11 @@ public class AuthController {
             Map<String, Object> claims = new HashMap<>();
             claims.put("email", usuarioLogado.getEmail());
             claims.put("roles", List.of("ROLE_USER"));
-            String jwt = jwtService.gerarToken(userId, 1, claims);
+            String jwt = serviceJWT.gerarToken(userId, 1, claims);
             System.out.println(usuarioLogado.getEmail() + " usuario");
 
-            if(!usuarioService.verificarExistenciaUsuario(usuarioLogado.getEmail())){
-                usuarioService.cadastrarUsuarioGoogle(usuarioLogado);
+            if(!serviceUsuario.verificarExistenciaUsuario(usuarioLogado.getEmail())){
+                serviceUsuario.cadastrarUsuarioGoogle(usuarioLogado);
             }
 
             System.out.println(jwt);

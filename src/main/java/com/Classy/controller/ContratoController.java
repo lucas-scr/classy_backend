@@ -1,8 +1,7 @@
 package com.Classy.controller;
 
 import com.Classy.DTO.ContratoDTO;
-import com.Classy.entitys.Contrato;
-import com.Classy.services.ContratoService;
+import com.Classy.services.ServiceContrato;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +16,13 @@ import java.util.List;
 public class ContratoController {
 
     @Autowired
-    private ContratoService contratoService;
+    private ServiceContrato contratoService;
 
     // Cadastrar contrato
     @PostMapping
     public ResponseEntity<ContratoDTO> cadastrarContrato(@Valid @RequestBody ContratoDTO contratoDto){
         ContratoDTO contratoSalvo = contratoService.cadastrarContrato(contratoDto);
-        URI location = URI.create("/contratos/" + contratoSalvo.getId());
+        URI location = URI.create("/api/contratos/" + contratoSalvo.getId());
         return ResponseEntity.created(location).body(contratoSalvo);
     }
 
@@ -35,8 +34,8 @@ public class ContratoController {
 
     // Consultar contrato por id
     @GetMapping("/{id}")
-    public ResponseEntity<ContratoDTO> buscarContrato(@PathVariable Long id){
-        return contratoService.buscarPorId(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ContratoDTO buscarContrato(@PathVariable Long id){
+        return contratoService.buscarPorId(id);
     }
 
     // Atualizar contrato
