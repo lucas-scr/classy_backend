@@ -6,6 +6,7 @@ import com.Classy.entitys.Atividade;
 public class AtividadeMapper {
 
     public static AtividadeDTO toDTO(Atividade atividade){
+        if (atividade == null) return null;
         AtividadeDTO atividadeDTO = new AtividadeDTO();
         atividadeDTO.setUrl(atividade.getUrl());
         atividadeDTO.setCodigo(atividade.getCodigo());
@@ -18,6 +19,7 @@ public class AtividadeMapper {
     }
 
     public static Atividade toEntity(AtividadeDTO atividadeDTO){
+        if (atividadeDTO == null) return null;
         Atividade atividade = new Atividade();
         atividade.setCodigo(atividadeDTO.getCodigo());
         atividade.setMateria(MateriaMapper.toEntity(atividadeDTO.getMateriaDTO()));
@@ -25,6 +27,14 @@ public class AtividadeMapper {
         atividade.setArquivo(atividadeDTO.getArquivo());
         atividade.setUrl(atividadeDTO.getUrl());
         return  atividade;
+    }
+
+    public static void updateEntityFromDTO(AtividadeDTO atividadeDTO, Atividade atividade){
+        if (atividadeDTO == null || atividade == null) return;
+        atividade.setMateria(MateriaMapper.toEntity(atividadeDTO.getMateriaDTO()));
+        atividade.setDescricao(atividadeDTO.getDescricao());
+        atividade.setArquivo(atividadeDTO.getArquivo());
+        atividade.setUrl(atividadeDTO.getUrl());
     }
 
 }

@@ -28,7 +28,9 @@ public class SecurityConfig{
                         .requestMatchers("/api/contratos",
                                 "/api/contratos/**",
                                 "/api/materias/",
-                                "/api/materias/**"
+                                "/api/materias/**",
+                                "/api/ativdades/",
+                                "/api/ativdades/**"
                         ).hasRole("USER")
                         .anyRequest().authenticated()
                 )

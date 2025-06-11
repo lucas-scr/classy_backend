@@ -31,13 +31,12 @@ public class ServiceAtividade {
         return AtividadeMapper.toDTO(repository.save(atividade));
     }
 
-    public Optional<AtividadeDTO> atualizarAtividade(Long id, AtividadeDTO atividadeDTO){
-        return repository.findById(id).map(
-                atividade -> {
-                    repository.save(AtividadeMapper.toEntity(atividadeDTO));
-                    return AtividadeMapper.toDTO(atividade);
-                }
-        );
+    public AtividadeDTO atualizarAtividade(Long id, AtividadeDTO atividadeDTO){
+        Atividade atividade = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException ("Atividade com ID " + id + " não encontrada"));
+
+        AtividadeMapper.updateEntityFromDTO(atividadeDTO, atividade);
+        return AtividadeMapper.toDTO(repository.save(atividade));
     }
 
     public List<AtividadeDTO> findAll(){
