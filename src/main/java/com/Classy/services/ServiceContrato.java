@@ -42,7 +42,7 @@ public class ServiceContrato {
 
     public Optional<ContratoDTO> atualizarContrato(Long id, ContratoDTO contratoatualizadoDto){
         return contratoRepository.findById(id).map(contrato -> {
-            contratoRepository.save(contrato);
+            contratoRepository.save(ContratoMapper.toEntity(contratoatualizadoDto));
            return ContratoMapper.toDTO(contrato);
         });
     }

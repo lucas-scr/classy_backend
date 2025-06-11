@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Blob;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "atividades")
@@ -33,8 +34,8 @@ public class Atividade {
     @NotNull(message = "O código é obrigatório")
     private String codigo;
 
-    @Column(name = "data_criacao", nullable = false)
-    private DateTime dataCriacao;
+    @Column(name = "data_criacao", nullable = false, updatable = false)
+    private LocalDateTime dataCriacao;
 
     public String getDescricao() {
         return descricao;
@@ -76,15 +77,18 @@ public class Atividade {
         this.codigo = codigo;
     }
 
-    public DateTime getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
+    @PrePersist
     public void setDataCriacao(DateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
+        this.dataCriacao = LocalDateTime.now();
     }
 
     public Long getId() {
         return id;
     }
+
+
 }

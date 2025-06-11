@@ -20,13 +20,9 @@ public class ServiceMateria {
 
 
     public MateriaDTO cadastrarMateria(MateriaDTO materiaDTO){
-        Boolean materiaExiste = repository.existsByNome(materiaDTO.getNome());
-        if(materiaExiste){
+        if(repository.existsByNome(materiaDTO.getNome())){
             throw new EntidadeDuplicadaException("materia", "nome", materiaDTO.getNome());
         }
-
-
-        System.out.println("teste de cadastro");
         return MateriaMapper.toDTO(repository.save(MateriaMapper.toEntity(materiaDTO)));
 
     }

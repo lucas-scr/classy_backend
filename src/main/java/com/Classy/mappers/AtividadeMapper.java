@@ -1,0 +1,30 @@
+package com.Classy.mappers;
+
+import com.Classy.DTO.AtividadeDTO;
+import com.Classy.entitys.Atividade;
+
+public class AtividadeMapper {
+
+    public static AtividadeDTO toDTO(Atividade atividade){
+        AtividadeDTO atividadeDTO = new AtividadeDTO();
+        atividadeDTO.setUrl(atividade.getUrl());
+        atividadeDTO.setCodigo(atividade.getCodigo());
+        atividadeDTO.setDescricao(atividade.getDescricao());
+        atividadeDTO.setId(atividade.getId());
+        atividadeDTO.setArquivo(atividade.getArquivo());
+        atividadeDTO.setMateriaDTO(MateriaMapper.toDTO(atividade.getMateria()));
+        atividadeDTO.setDataCriacao(atividade.getDataCriacao());
+        return atividadeDTO;
+    }
+
+    public static Atividade toEntity(AtividadeDTO atividadeDTO){
+        Atividade atividade = new Atividade();
+        atividade.setCodigo(atividadeDTO.getCodigo());
+        atividade.setMateria(MateriaMapper.toEntity(atividadeDTO.getMateriaDTO()));
+        atividade.setDescricao(atividadeDTO.getDescricao());
+        atividade.setArquivo(atividadeDTO.getArquivo());
+        atividade.setUrl(atividadeDTO.getUrl());
+        return  atividade;
+    }
+
+}
