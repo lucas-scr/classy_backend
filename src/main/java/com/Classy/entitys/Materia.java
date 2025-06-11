@@ -2,12 +2,13 @@ package com.Classy.entitys;
 
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "materia")
+@Table(name = "materias")
 public class Materia {
 
     @Id
@@ -16,11 +17,11 @@ public class Materia {
 
 
     @Column(name = "nome", nullable = false)
-    @NotNull(message = "O nome da materia é obrigatório")
+    @NotBlank(message = "O nome da materia é obrigatório")
     private String nome;
 
 
-    @Column(name = "data_criacao", nullable = false)
+    @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime  dataCriacao;
 
     public Long getId() {

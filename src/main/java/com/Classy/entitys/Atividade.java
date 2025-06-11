@@ -18,9 +18,10 @@ public class Atividade {
     @NotNull(message = "A descrição é obrigatório")
     private String descricao;
 
-    @OneToOne(mappedBy = "id_materia", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "id_materia")
     @NotNull(message = "A matéria é obrigatório")
-    private Long materia;
+    private Materia materia;
 
     @Column(name = "arquivo")
     private Blob arquivo;
@@ -43,11 +44,11 @@ public class Atividade {
         this.descricao = descricao;
     }
 
-    public Long getMateria() {
+    public Materia getMateria() {
         return materia;
     }
 
-    public void setMateria(Long materia) {
+    public void setMateria(Materia materia) {
         this.materia = materia;
     }
 

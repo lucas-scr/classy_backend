@@ -6,6 +6,7 @@ import com.Classy.exception.EntidadeDuplicadaException;
 import com.Classy.mappers.MateriaMapper;
 import com.Classy.repositorys.MateriaRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class ServiceMateria {
 
+    @Autowired
     private MateriaRepository repository;
 
 
@@ -22,6 +24,9 @@ public class ServiceMateria {
         if(materiaExiste){
             throw new EntidadeDuplicadaException("materia", "nome", materiaDTO.getNome());
         }
+
+
+        System.out.println("teste de cadastro");
         return MateriaMapper.toDTO(repository.save(MateriaMapper.toEntity(materiaDTO)));
 
     }

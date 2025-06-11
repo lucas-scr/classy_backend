@@ -2,6 +2,7 @@ package com.Classy.controller;
 
 import com.Classy.DTO.MateriaDTO;
 import com.Classy.services.ServiceMateria;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class MateriaController {
     private ServiceMateria serviceMateria;
 
     @PostMapping
-    public ResponseEntity<MateriaDTO> postMateria(MateriaDTO materiaDTO){
+    public ResponseEntity<MateriaDTO> postMateria(@Valid @RequestBody MateriaDTO materiaDTO){
        MateriaDTO materiaSalva = serviceMateria.cadastrarMateria(materiaDTO);
         URI location = URI.create("/api/materias/" + materiaSalva.getId());
         return ResponseEntity.created(location).body(materiaSalva);
