@@ -1,9 +1,7 @@
 package com.Classy.entitys;
 
-import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -16,8 +14,7 @@ public class Materia {
     private Long id;
 
 
-    @Column(name = "nome", nullable = false)
-    @NotBlank(message = "O nome da materia é obrigatório")
+    @Column(name = "nome")
     private String nome;
 
 

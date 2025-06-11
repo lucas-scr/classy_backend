@@ -8,7 +8,7 @@ public class AtividadeDTO {
     private Long id;
     private String codigo;
     private String descricao;
-    private Blob arquivo;
+    private byte [] arquivo;
     private String url;
     private MateriaDTO materiaDTO;
     private LocalDateTime dataCriacao;
@@ -29,11 +29,11 @@ public class AtividadeDTO {
         this.codigo = codigo;
     }
 
-    public Blob getArquivo() {
+    public byte[] getArquivo() {
         return arquivo;
     }
 
-    public void setArquivo(Blob arquivo) {
+    public void setArquivo(byte[] arquivo) {
         this.arquivo = arquivo;
     }
 

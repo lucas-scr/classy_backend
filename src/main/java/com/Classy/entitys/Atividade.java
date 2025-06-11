@@ -2,6 +2,7 @@ package com.Classy.entitys;
 
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Blob;
@@ -16,7 +17,7 @@ public class Atividade {
     private Long id;
 
     @Column(name = "descricao", nullable = false)
-    @NotNull(message = "A descrição é obrigatório")
+    @NotBlank(message = "A descrição é obrigatório")
     private String descricao;
 
     @OneToOne
@@ -25,13 +26,13 @@ public class Atividade {
     private Materia materia;
 
     @Column(name = "arquivo")
-    private Blob arquivo;
+    private byte[] arquivo;
 
     @Column(name = "url")
     private String url;
 
     @Column(name = "codigo", nullable = false)
-    @NotNull(message = "O código é obrigatório")
+    @NotBlank(message = "O código é obrigatório")
     private String codigo;
 
     @Column(name = "data_criacao", nullable = false, updatable = false)
@@ -53,11 +54,11 @@ public class Atividade {
         this.materia = materia;
     }
 
-    public Blob getArquivo() {
+    public byte[] getArquivo() {
         return arquivo;
     }
 
-    public void setArquivo(Blob arquivo) {
+    public void setArquivo(byte[] arquivo) {
         this.arquivo = arquivo;
     }
 
@@ -82,7 +83,7 @@ public class Atividade {
     }
 
     @PrePersist
-    public void setDataCriacao(DateTime dataCriacao) {
+    public void setDataCriacao() {
         this.dataCriacao = LocalDateTime.now();
     }
 
