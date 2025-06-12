@@ -1,16 +1,19 @@
 package com.Classy.DTO;
 
+import com.Classy.entitys.Materia;
+
+import java.io.Serializable;
 import java.sql.Blob;
 import java.time.LocalDateTime;
 
-public class AtividadeDTO {
+public class AtividadeDTO implements Serializable {
 
     private Long id;
     private String codigo;
     private String descricao;
     private byte [] arquivo;
     private String url;
-    private MateriaDTO materiaDTO;
+    private Materia materia;
     private LocalDateTime dataCriacao;
 
     public Long getId() {
@@ -34,6 +37,7 @@ public class AtividadeDTO {
     }
 
     public void setArquivo(byte[] arquivo) {
+
         this.arquivo = arquivo;
     }
 
@@ -53,12 +57,12 @@ public class AtividadeDTO {
         this.url = url;
     }
 
-    public MateriaDTO getMateriaDTO() {
-        return materiaDTO;
+    public Materia getMateria() {
+        return materia;
     }
 
-    public void setMateriaDTO(MateriaDTO materiaDTO) {
-        this.materiaDTO = materiaDTO;
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 
     public LocalDateTime getDataCriacao() {

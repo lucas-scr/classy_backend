@@ -20,7 +20,6 @@ public class ServiceGoogleTokenVerifier {
         if (clientId == null || clientId.isBlank()) {
             throw new IllegalStateException("GOOGLE_CLIENT_ID não está definido!");
         }
-        System.out.println("GOOGLE_CLIENT_ID carregado: " + clientId);
         this.verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(),
                 JacksonFactory.getDefaultInstance())
                 .setAudience(Collections.singletonList(clientId)).build();
@@ -33,7 +32,7 @@ public class ServiceGoogleTokenVerifier {
             if (idToken == null) {
                 throw new IllegalArgumentException("ID token inválido ou expirado.");
             }
-            throw new RuntimeException("ID Token inválido");
+            return idToken;
         }catch (GeneralSecurityException | IOException e){
             throw new RuntimeException("Erro ao verificar ID Token: " + e.getMessage(), e);
         }

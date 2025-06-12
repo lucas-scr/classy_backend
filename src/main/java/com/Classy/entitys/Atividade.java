@@ -25,7 +25,8 @@ public class Atividade {
     @NotNull(message = "A matéria é obrigatório")
     private Materia materia;
 
-    @Column(name = "arquivo")
+    @Lob
+    @Column(name = "arquivo", columnDefinition = "MEDIUMBLOB")
     private byte[] arquivo;
 
     @Column(name = "url")

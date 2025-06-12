@@ -2,10 +2,6 @@ package com.Classy.mappers;
 
 import com.Classy.DTO.MateriaDTO;
 import com.Classy.entitys.Materia;
-import com.google.api.client.util.DateTime;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class MateriaMapper {
 
@@ -19,8 +15,21 @@ public class MateriaMapper {
      }
 
      public static Materia toEntity(MateriaDTO materiaDTO){
+         if(materiaDTO == null || materiaDTO.getId() == null){
+             return null;
+         }
          Materia materia = new Materia();
          materia.setNome(materiaDTO.getNome());
+
+         return materia;
+     }
+
+     public static Materia toEntityReferencia(MateriaDTO materiaDTO){
+         if (materiaDTO == null || materiaDTO.getId() == null) {
+             return null;
+         }
+         Materia materia = new Materia();
+         materia.setId(materiaDTO.getId());
          return materia;
      }
 }

@@ -32,13 +32,16 @@ public class AtividadeController {
             @RequestPart("dados") @Valid AtividadeDTO atividadeDTO,
             @RequestPart(value = "arquivo", required = false) MultipartFile arquivo){
 
-
         try {
             byte[] arquivoEmBytes = null;
             if (arquivo != null && !arquivo.isEmpty()){
                 arquivoEmBytes = arquivo.getBytes();
+                if (arquivoEmBytes.length > 5 * 1024 * 1024) { // 5MB em bytes
+                    return ResponseEntity
+                            .status(HttpStatus.BAD_REQUEST)
+                            .body("Arquivo muito grande, máximo permitido é 5 MB.");
+                }
                 atividadeDTO.setArquivo(arquivoEmBytes);
-                System.out.println(arquivoEmBytes);
             }
             AtividadeDTO atividadeSalva = serviceAtividade.cadastrarAtividade(atividadeDTO);
             URI location = URI.create("/api/atividades/" + atividadeSalva.getId());
