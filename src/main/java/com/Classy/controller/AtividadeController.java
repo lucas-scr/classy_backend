@@ -29,15 +29,16 @@ public class AtividadeController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> postAtividade(
-            @RequestPart("dados") @Valid @RequestBody AtividadeDTO atividadeDTO,
-            @RequestPart("arquivo") MultipartFile arquivo){
+            @RequestPart("dados") @Valid AtividadeDTO atividadeDTO,
+            @RequestPart(value = "arquivo", required = false) MultipartFile arquivo){
 
 
         try {
             byte[] arquivoEmBytes = null;
-            if (arquivo != null && arquivo.isEmpty()){
+            if (arquivo != null && !arquivo.isEmpty()){
                 arquivoEmBytes = arquivo.getBytes();
                 atividadeDTO.setArquivo(arquivoEmBytes);
+                System.out.println(arquivoEmBytes);
             }
             AtividadeDTO atividadeSalva = serviceAtividade.cadastrarAtividade(atividadeDTO);
             URI location = URI.create("/api/atividades/" + atividadeSalva.getId());
@@ -83,7 +84,7 @@ public class AtividadeController {
             return ResponseEntity.ok("Atividade atualizada com sucesso!");
 
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao proceso o arquivo.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar o arquivo.");
         }
     }
 

@@ -21,11 +21,11 @@ import java.util.List;
 
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private String JWT_SECRET;
+    private final String JWT_SECRET;
 
     public JwtAuthFilter(String secret){
         this.JWT_SECRET = secret;
-    }
+ }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -48,20 +48,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 List<String> permissoes = claims.get("roles", List.class);
                 List<GrantedAuthority> autorizacoes = new ArrayList<>();
 
-                System.out.println("Claims: " + claims);
-                System.out.println("Roles extraídas: " + permissoes);
-
-
                 if (permissoes != null){
                     for(String permissao: permissoes){
                         autorizacoes.add(new SimpleGrantedAuthority(permissao));
                     }
-                    System.out.println("Autorizacoes montadas: " + autorizacoes);
                 }
 
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userId, null, autorizacoes);
-
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
             } catch (Exception e) {

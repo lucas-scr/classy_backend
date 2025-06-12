@@ -40,6 +40,7 @@ public class AuthController {
             var payload = idToken.getPayload();
             String userId = payload.getSubject();
 
+
             UsuarioDTO usuarioLogado = new UsuarioDTO();
             usuarioLogado.setEmail(payload.getEmail());
             usuarioLogado.setNome((String) payload.get("name"));
@@ -48,9 +49,8 @@ public class AuthController {
             Map<String, Object> claims = new HashMap<>();
             claims.put("email", usuarioLogado.getEmail());
             claims.put("roles", List.of("ROLE_USER"));
-            String jwt = serviceJWT.gerarToken(userId, 15, claims);
-            System.out.println(usuarioLogado.getEmail() + " usuario");
-
+            String jwt = serviceJWT.gerarToken(userId, 30, claims);
+            System.out.println(jwt);
             if(!serviceUsuario.verificarExistenciaUsuario(usuarioLogado.getEmail())){
                 serviceUsuario.cadastrarUsuarioGoogle(usuarioLogado);
             }
@@ -58,7 +58,7 @@ public class AuthController {
             System.out.println(jwt);
             return new TokenResponse(jwt);
         }
-        throw new GeneralSecurityException("Token inválido");
+        throw new GeneralSecurityException("Token inválido.");
     }
 
 }
