@@ -16,7 +16,7 @@ public class ContratoDTO {
     private String documentoResponsavel;
     private String telefoneResponsavelPrincipal;
     private List<Contato> listaContatos;
-    private Aluno aluno;
+    private AlunoDTO aluno;
     private boolean isDiasAlternados;
     private Date dataInicio;
     private Integer diaPagamento;
@@ -62,11 +62,11 @@ public class ContratoDTO {
         this.telefoneResponsavelPrincipal = telefoneResponsavelPrincipal;
     }
 
-    public Aluno getAluno() {
+    public AlunoDTO getAluno() {
         return aluno;
     }
 
-    public void setAluno(Aluno aluno) {
+    public void setAluno(AlunoDTO aluno) {
         this.aluno = aluno;
     }
 

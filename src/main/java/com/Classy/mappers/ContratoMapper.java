@@ -19,7 +19,7 @@ public class ContratoMapper {
         dto.setListaContatos(contrato.getListaContatos());
         dto.setTelefoneResponsavelPrincipal(telefonePrincipal);
         dto.setDiasAlternados(contrato.isDiasAlternados());
-        dto.setAluno(contrato.getAluno());
+        dto.setAluno(AlunoMapper.toDTO(contrato.getAluno()));
         dto.setDiaPagamento(contrato.getDiaPagamento());
         dto.setDataInicio(contrato.getDataInicio());
         dto.setValorPagamento(contrato.getValorPagamento());
@@ -30,14 +30,13 @@ public class ContratoMapper {
     }
 
     public static Contrato toEntity(ContratoDTO contratoDto) {
-
         Contrato contratoEntity = new Contrato();
         contratoEntity.setNomeResponsavel(contratoDto.getNomeResponsavel());
         contratoEntity.setDocumentoResponsavel(contratoDto.getDocumentoResponsavel());
         contratoEntity.setListaDeAulas(contratoDto.getDiasDasAulas());
         contratoEntity.setListaContatos(contratoDto.getListaContatos());
         contratoEntity.setDiasAlternados(contratoDto.isDiasAlternados());
-        contratoEntity.setAluno(contratoDto.getAluno());
+        contratoEntity.setAluno(AlunoMapper.toEntity(contratoDto.getAluno()));
         contratoEntity.setDiaPagamento(contratoDto.getDiaPagamento());
         contratoEntity.setDataInicio(contratoDto.getDataInicio());
         contratoEntity.setValorPagamento(contratoDto.getValorPagamento());

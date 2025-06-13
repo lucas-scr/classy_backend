@@ -1,7 +1,10 @@
 package com.Classy.entitys;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -22,6 +25,13 @@ public class Aluno {
     @JoinColumn(name = "id_contrato")
     private Contrato contrato;
 
+    @Column(name = "dataCriacao", nullable = false)
+    private LocalDateTime dataCriacao;
+
+
+    public Long getId() {
+        return id;
+    }
 
     public Date getDataNascimento() {
         return dataNascimento;
@@ -45,6 +55,15 @@ public class Aluno {
 
     public void setContrato(Contrato contrato) {
         this.contrato = contrato;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    @PrePersist
+    public void setDataCriacao() {
+        this.dataCriacao = LocalDateTime.now();
     }
 
 }
