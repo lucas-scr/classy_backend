@@ -1,5 +1,6 @@
 package com.Classy.entitys;
 
+import com.Classy.util.DiaDaSemana;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -15,27 +16,22 @@ public class DiasDaAula {
 
     @Column(name = "dia_semana", nullable = false)
     @NotNull(message = "O dia da semana é obrigatório")
-    private Integer diaDaSemana;
+    private DiaDaSemana diaDaSemana;
 
     @Column(name = "horario", nullable = false)
     @NotNull(message = "O horário da aula é obrigatório")
     private LocalTime horario;
-
-
-    @ManyToOne
-    @JoinColumn(name = "id_aluno", nullable = false)
-    private Aluno aluno;
 
     @ManyToOne
     @JoinColumn(name = "id_contrato")
     private Contrato contrato;
 
 
-    public Integer getDiaDaSemana() {
+    public DiaDaSemana getDiaDaSemana() {
         return diaDaSemana;
     }
 
-    public void setDiaDaSemana(Integer diaDaSemana) {
+    public void setDiaDaSemana(DiaDaSemana diaDaSemana) {
         this.diaDaSemana = diaDaSemana;
     }
 
@@ -55,11 +51,4 @@ public class DiasDaAula {
         this.id = id;
     }
 
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
 }

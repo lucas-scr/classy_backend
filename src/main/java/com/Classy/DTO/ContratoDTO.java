@@ -3,14 +3,16 @@ package com.Classy.DTO;
 import com.Classy.entitys.Aluno;
 import com.Classy.entitys.Contato;
 import com.Classy.entitys.DiasDaAula;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.api.client.util.DateTime;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-public class ContratoDTO {
+public class ContratoDTO implements Serializable {
     private Long id;
     private String nomeResponsavel;
     private String documentoResponsavel;
@@ -18,6 +20,7 @@ public class ContratoDTO {
     private List<Contato> listaContatos;
     private AlunoDTO aluno;
     private boolean isDiasAlternados;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataInicio;
     private Integer diaPagamento;
     private BigDecimal valorPagamento;

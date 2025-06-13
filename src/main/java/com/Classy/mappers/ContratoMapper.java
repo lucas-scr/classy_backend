@@ -25,7 +25,6 @@ public class ContratoMapper {
         dto.setValorPagamento(contrato.getValorPagamento());
         dto.setRessarcimentoEmFeriados(contrato.isRessarcimentoEmFeriados());
         dto.setDiasDasAulas(contrato.getListaDeAulas());
-
         return dto;
     }
 
@@ -41,8 +40,6 @@ public class ContratoMapper {
         contratoEntity.setDataInicio(contratoDto.getDataInicio());
         contratoEntity.setValorPagamento(contratoDto.getValorPagamento());
         contratoEntity.setRessarcimentoEmFeriados(contratoDto.isRessarcimentoEmFeriados());
-
-
         return contratoEntity;
     }
 }

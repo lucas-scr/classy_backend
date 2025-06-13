@@ -18,15 +18,10 @@ public class AlunoMapper {
 
     public static Aluno toEntity (AlunoDTO dto){
         Aluno entity = new Aluno();
-        entity.setContrato(dto.getContrato());
+       // entity.setContrato(dto.getContrato());
         entity.setNome(dto.getNome());
         entity.setDataNascimento(dto.getDataNascimento());
-        entity.setContrato(dto.getContrato());
+       // entity.setContrato(dto.getContrato());
         return entity;
-    }
-
-
-    public static Aluno toUpdateEntity (){
-
     }
 }

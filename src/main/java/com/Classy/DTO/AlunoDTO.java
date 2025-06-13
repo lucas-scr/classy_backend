@@ -9,7 +9,7 @@ public class AlunoDTO {
     private Long id;
     private String nome;
     private Date dataNascimento;
-    private Contrato contrato;
+    //private Contrato contrato;
 
     public Long getId() {
         return id;
@@ -35,11 +35,11 @@ public class AlunoDTO {
         this.dataNascimento = dataNascimento;
     }
 
-    public Contrato getContrato() {
-        return contrato;
-    }
-
-    public void setContrato(Contrato contrato) {
-        this.contrato = contrato;
-    }
+//    public Contrato getContrato() {
+//        return contrato;
+//    }
+//
+//    public void setContrato(Contrato contrato) {
+//        this.contrato = contrato;
+//    }
 }
