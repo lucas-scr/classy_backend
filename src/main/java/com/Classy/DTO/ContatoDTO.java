@@ -1,16 +1,24 @@
 package com.Classy.DTO;
 
-public class ContatoDTO {
+import com.Classy.entitys.Contrato;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.Serializable;
+
+public class ContatoDTO implements Serializable {
+
+    @JsonIgnore
     private Long id;
     private String telefone;
     private String responsavel;
-    private Boolean isPrincipal;
+    private Boolean principal;
 
+    @JsonIgnore
     public Long getId() {
         return id;
     }
 
+    @JsonIgnore
     public void setId(Long id) {
         this.id = id;
     }
@@ -32,10 +40,11 @@ public class ContatoDTO {
     }
 
     public Boolean getPrincipal() {
-        return isPrincipal;
+        return principal;
     }
 
     public void setPrincipal(Boolean principal) {
-        isPrincipal = principal;
+        this.principal = principal;
     }
+
 }

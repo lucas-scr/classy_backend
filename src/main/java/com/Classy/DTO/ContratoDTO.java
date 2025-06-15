@@ -17,7 +17,7 @@ public class ContratoDTO implements Serializable {
     private String nomeResponsavel;
     private String documentoResponsavel;
     private String telefoneResponsavelPrincipal;
-    private List<Contato> listaContatos;
+    private List<ContatoDTO> listaContatos;
     private AlunoDTO aluno;
     private boolean isDiasAlternados;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -129,11 +129,11 @@ public class ContratoDTO implements Serializable {
         this.diasDasAulas = diasDasAulas;
     }
 
-    public List<Contato> getListaContatos() {
+    public List<ContatoDTO> getListaContatos() {
         return listaContatos;
     }
 
-    public void setListaContatos(List<Contato> listaContatos) {
+    public void setListaContatos(List<ContatoDTO> listaContatos) {
         this.listaContatos = listaContatos;
     }
 

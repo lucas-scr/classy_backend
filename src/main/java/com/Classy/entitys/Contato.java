@@ -58,4 +58,12 @@ public class Contato {
     public void setPrincipal(Boolean principal) {
         isPrincipal = principal;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

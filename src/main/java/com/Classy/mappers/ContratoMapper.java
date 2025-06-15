@@ -4,6 +4,9 @@ import com.Classy.DTO.ContratoDTO;
 import com.Classy.entitys.Contato;
 import com.Classy.entitys.Contrato;
 
+import java.util.stream.Collectors;
+
+
 public class ContratoMapper {
 
     public static ContratoDTO toDTO(Contrato contrato){
@@ -16,7 +19,11 @@ public class ContratoMapper {
                 .map(Contato::getTelefone)
                 .findFirst()
                 .orElse(null);
-        dto.setListaContatos(contrato.getListaContatos());
+        dto.setListaContatos(
+                contrato.getListaContatos().stream()
+                .map(ContatoMapper::toDTO)
+                .collect(Collectors.toList())
+        );
         dto.setTelefoneResponsavelPrincipal(telefonePrincipal);
         dto.setDiasAlternados(contrato.isDiasAlternados());
         dto.setAluno(AlunoMapper.toDTO(contrato.getAluno()));
@@ -33,7 +40,8 @@ public class ContratoMapper {
         contratoEntity.setNomeResponsavel(contratoDto.getNomeResponsavel());
         contratoEntity.setDocumentoResponsavel(contratoDto.getDocumentoResponsavel());
         contratoEntity.setListaDeAulas(contratoDto.getDiasDasAulas());
-        contratoEntity.setListaContatos(contratoDto.getListaContatos());
+        contratoEntity.setListaContatos(contratoDto.getListaContatos().stream()
+                .map(ContatoMapper::toEntity).collect(Collectors.toList()));
         contratoEntity.setDiasAlternados(contratoDto.isDiasAlternados());
         contratoEntity.setAluno(AlunoMapper.toEntity(contratoDto.getAluno()));
         contratoEntity.setDiaPagamento(contratoDto.getDiaPagamento());
