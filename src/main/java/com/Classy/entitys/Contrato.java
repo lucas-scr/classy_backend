@@ -76,7 +76,7 @@ public class Contrato {
     private LocalDateTime dataCriacao;
 
     @Column(name = "situacao", nullable = false)
-    private EnumSituacoesContrato enumSituacoesContrato;
+    private EnumSituacoesContrato situacao;
 
 
     public Long getId() {
@@ -175,11 +175,11 @@ public class Contrato {
         this.listaDeAulas = listaDeAulas;
     }
 
-    public EnumSituacoesContrato getSituacoesContrato() {
-        return enumSituacoesContrato;
+    public EnumSituacoesContrato getSituacao() {
+        return situacao;
     }
 
-    public void setSituacoesContrato(EnumSituacoesContrato enumSituacoesContrato) {
-        this.enumSituacoesContrato = enumSituacoesContrato;
+    public void setSituacao(EnumSituacoesContrato situacao) {
+        this.situacao = situacao;
     }
 }

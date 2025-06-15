@@ -3,6 +3,7 @@ package com.Classy.entitys;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -25,7 +26,8 @@ public class Aluno {
     @JoinColumn(name = "id_contrato")
     private Contrato contrato;
 
-    @Column(name = "dataCriacao", nullable = false)
+    @CreationTimestamp
+    @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
 
@@ -66,4 +68,7 @@ public class Aluno {
         this.dataCriacao = LocalDateTime.now();
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -12,11 +12,9 @@ import java.time.LocalTime;
 
 public class DiasDasAulasDTO{
 
-    @JsonIgnore
     private Long id;
 
-    @JsonProperty("dia_semana")
-    private EnumDiaDaSemana diaDaSemana;
+    private EnumDiaDaSemana dia;
 
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime horario;
@@ -34,13 +32,11 @@ public class DiasDasAulasDTO{
     }
 
     public EnumDiaDaSemana getDiaSemana() {
-        System.out.println("get diaSemana: " + diaDaSemana);
-        return diaDaSemana;
+        return dia;
     }
 
     public void setDiaSemana(EnumDiaDaSemana dia_semana) {
-        System.out.println("Set diaSemana: " + diaDaSemana);
-        this.diaDaSemana = dia_semana;
+        this.dia = dia_semana;
     }
 
     public LocalTime getHorario() {

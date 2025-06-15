@@ -8,6 +8,7 @@ import com.Classy.mappers.ContratoMapper;
 import com.Classy.repositorys.ContratoRepository;
 import com.Classy.util.EnumSituacoesContrato;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class ServiceContrato {
     @Autowired
     private ContratoRepository contratoRepository;
 
+    @Transactional
     public ContratoDTO cadastrarContrato(ContratoDTO contrato){
 
         if(contrato.getAluno() == null){
@@ -56,9 +58,10 @@ public class ServiceContrato {
         return ContratoMapper.toDTO(contrato);
     }
 
+    @Transactional
     public Optional<ContratoDTO> atualizarContrato(Long id, ContratoDTO contratoatualizadoDto){
         return contratoRepository.findById(id).map(contrato -> {
-            contratoRepository.save(ContratoMapper.toEntity(contratoatualizadoDto));
+            contratoRepository.save(ContratoMapper.toUpdateEntity(contrato, contratoatualizadoDto));
            return ContratoMapper.toDTO(contrato);
         });
     }

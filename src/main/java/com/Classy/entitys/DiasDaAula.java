@@ -15,7 +15,7 @@ public class DiasDaAula {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dia_semana")
+    @Column(name = "dia_semana", nullable = false)
     @NotNull(message = "O dia da semana é obrigatório")
     private EnumDiaDaSemana diaDaSemana;
 

@@ -39,7 +39,7 @@ public class ContratoController {
 
     // Atualizar contrato
     @PutMapping("/{id}")
-    public ResponseEntity<ContratoDTO> atualizarContrato(@PathVariable Long id, @Valid @RequestBody ContratoDTO contratoAtualizado){
+    public ResponseEntity<ContratoDTO> atualizarContrato(@Valid @PathVariable Long id, @RequestBody ContratoDTO contratoAtualizado){
         return contratoService.atualizarContrato(id, contratoAtualizado).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
