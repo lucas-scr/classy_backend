@@ -1,10 +1,12 @@
 package com.Classy.services;
 
 import com.Classy.DTO.ContratoDTO;
+import com.Classy.entitys.Contato;
 import com.Classy.entitys.Contrato;
 import com.Classy.entitys.Materia;
 import com.Classy.mappers.ContratoMapper;
 import com.Classy.repositorys.ContratoRepository;
+import com.Classy.util.EnumSituacoesContrato;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,14 @@ public class ServiceContrato {
     private ContratoRepository contratoRepository;
 
     public ContratoDTO cadastrarContrato(ContratoDTO contrato){
+
+        if(contrato.getAluno() == null){
+            throw new IllegalArgumentException("O aluno é obrigatório.");
+        }
+
+        if(contrato.getSituacoesContrato() == null){
+            contrato.setSituacoesContrato(EnumSituacoesContrato.PENDENTE);
+        }
 
         // converter o DTO para o Entity
         Contrato contratoEntity = ContratoMapper.toEntity(contrato);

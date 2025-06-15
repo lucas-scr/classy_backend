@@ -3,6 +3,7 @@ package com.Classy.DTO;
 import com.Classy.entitys.Aluno;
 import com.Classy.entitys.Contato;
 import com.Classy.entitys.DiasDaAula;
+import com.Classy.util.EnumSituacoesContrato;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.api.client.util.DateTime;
 
@@ -26,8 +27,9 @@ public class ContratoDTO implements Serializable {
     private BigDecimal valorPagamento;
     private boolean autorizaUsoDeImagem;
     private boolean ressarcimentoEmFeriados;
-    private List<DiasDaAula> diasDasAulas;
+    private List<DiasDasAulasDTO> diasDasAulas;
     private LocalDateTime dataCriacao;
+    private EnumSituacoesContrato situacoesContrato;
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
@@ -121,11 +123,11 @@ public class ContratoDTO implements Serializable {
         this.ressarcimentoEmFeriados = ressarcimentoEmFeriados;
     }
 
-    public List<DiasDaAula> getDiasDasAulas() {
+    public List<DiasDasAulasDTO> getDiasDasAulas() {
         return diasDasAulas;
     }
 
-    public void setDiasDasAulas(List<DiasDaAula> diasDasAulas) {
+    public void setDiasDasAulas(List<DiasDasAulasDTO> diasDasAulas) {
         this.diasDasAulas = diasDasAulas;
     }
 
@@ -137,6 +139,15 @@ public class ContratoDTO implements Serializable {
         this.listaContatos = listaContatos;
     }
 
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
+    public EnumSituacoesContrato getSituacoesContrato() {
+        return situacoesContrato;
+    }
 
+    public void setSituacoesContrato(EnumSituacoesContrato situacoesContrato) {
+        this.situacoesContrato = situacoesContrato;
+    }
 }

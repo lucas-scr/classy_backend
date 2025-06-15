@@ -1,5 +1,6 @@
 package com.Classy.entitys;
 
+import com.Classy.util.EnumSituacoesContrato;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -73,6 +74,10 @@ public class Contrato {
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
+
+    @Column(name = "situacao", nullable = false)
+    private EnumSituacoesContrato enumSituacoesContrato;
+
 
     public Long getId() {
         return id;
@@ -168,5 +173,13 @@ public class Contrato {
 
     public void setListaDeAulas(List<DiasDaAula> listaDeAulas) {
         this.listaDeAulas = listaDeAulas;
+    }
+
+    public EnumSituacoesContrato getSituacoesContrato() {
+        return enumSituacoesContrato;
+    }
+
+    public void setSituacoesContrato(EnumSituacoesContrato enumSituacoesContrato) {
+        this.enumSituacoesContrato = enumSituacoesContrato;
     }
 }

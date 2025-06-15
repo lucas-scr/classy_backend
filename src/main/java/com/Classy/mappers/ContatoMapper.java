@@ -20,6 +20,7 @@ public class ContatoMapper {
         entity.setPrincipal(dto.getPrincipal());
         entity.setTelefone(dto.getTelefone());
         entity.setResponsavel(dto.getResponsavel());
+        entity.setContrato(dto.getContrato());
         return entity;
     }
 }

@@ -1,6 +1,7 @@
 package com.Classy.entitys;
 
-import com.Classy.util.DiaDaSemana;
+import com.Classy.util.EnumDiaDaSemana;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,25 +15,26 @@ public class DiasDaAula {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dia_semana", nullable = false)
+    @Column(name = "dia_semana")
     @NotNull(message = "O dia da semana é obrigatório")
-    private DiaDaSemana diaDaSemana;
+    private EnumDiaDaSemana diaDaSemana;
 
     @Column(name = "horario", nullable = false)
     @NotNull(message = "O horário da aula é obrigatório")
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime horario;
 
     @ManyToOne
-    @JoinColumn(name = "id_contrato")
+    @JoinColumn(name = "id_contrato", nullable = false)
     private Contrato contrato;
 
 
-    public DiaDaSemana getDiaDaSemana() {
+    public EnumDiaDaSemana getDiaDaSemana() {
         return diaDaSemana;
     }
 
-    public void setDiaDaSemana(DiaDaSemana diaDaSemana) {
-        this.diaDaSemana = diaDaSemana;
+    public void setDiaDaSemana(EnumDiaDaSemana enumDiaDaSemana) {
+        this.diaDaSemana = enumDiaDaSemana;
     }
 
     public LocalTime getHorario() {
@@ -51,4 +53,11 @@ public class DiasDaAula {
         this.id = id;
     }
 
+    public Contrato getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(Contrato contrato) {
+        this.contrato = contrato;
+    }
 }

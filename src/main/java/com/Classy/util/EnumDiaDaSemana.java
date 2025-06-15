@@ -1,6 +1,6 @@
 package com.Classy.util;
 
-public enum DiaDaSemana {
+public enum EnumDiaDaSemana {
     SEGUNDA("Segunda-feira"),
     TERCA("Terça-feira"),
     QUARTA("Quarta-feira"),
@@ -11,7 +11,7 @@ public enum DiaDaSemana {
 
     private final String descricao;
 
-    DiaDaSemana(String descricao) {
+    EnumDiaDaSemana(String descricao) {
         this.descricao = descricao;
     }
 

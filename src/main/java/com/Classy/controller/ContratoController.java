@@ -20,10 +20,9 @@ public class ContratoController {
 
     // Cadastrar contrato
     @PostMapping
-    public ResponseEntity<ContratoDTO> cadastrarContrato(@Valid @RequestBody ContratoDTO contratoDto){
+    public ResponseEntity<String> cadastrarContrato(@Valid @RequestBody ContratoDTO contratoDto){
         ContratoDTO contratoSalvo = contratoService.cadastrarContrato(contratoDto);
-        URI location = URI.create("/api/contratos/" + contratoSalvo.getId());
-        return ResponseEntity.created(location).body(contratoSalvo);
+        return ResponseEntity.ok("Contrato cadastrado com sucesso.");
     }
 
     @GetMapping

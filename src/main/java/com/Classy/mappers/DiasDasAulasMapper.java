@@ -7,6 +7,7 @@ public class DiasDasAulasMapper {
 
     public static DiasDasAulasDTO toDTO(DiasDaAula entity){
         DiasDasAulasDTO dto = new DiasDasAulasDTO();
+        dto.setId(entity.getId());
         dto.setDia_semana(entity.getDiaDaSemana());
         dto.setHorario(entity.getHorario());
         return dto;

@@ -1,24 +1,24 @@
 package com.Classy.DTO;
 
+import com.Classy.entitys.Contrato;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 
 public class AlunoDTO {
-    @JsonIgnore
+
     private Long id;
     private String nome;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataNascimento;
-    //private Contrato contrato;
 
     @JsonIgnore
+    private Contrato contrato;
     public Long getId() {
         return id;
     }
-    @JsonIgnore
     public void setId(Long id) {
         this.id = id;
     }
@@ -39,11 +39,11 @@ public class AlunoDTO {
         this.dataNascimento = dataNascimento;
     }
 
-//    public Contrato getContrato() {
-//        return contrato;
-//    }
-//
-//    public void setContrato(Contrato contrato) {
-//        this.contrato = contrato;
-//    }
+    public Contrato getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(Contrato contrato) {
+        this.contrato = contrato;
+    }
 }
