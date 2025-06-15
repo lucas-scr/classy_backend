@@ -27,6 +27,12 @@ public class ServiceContrato {
             throw new IllegalArgumentException("O aluno é obrigatório.");
         }
 
+        if(contrato.getDiasDasAulas().getFirst().getDiaSemana() == null){
+            throw new IllegalArgumentException("O dia ta vazio é obrigatório.");
+        }
+
+
+
         if(contrato.getSituacoesContrato() == null){
             contrato.setSituacoesContrato(EnumSituacoesContrato.PENDENTE);
         }

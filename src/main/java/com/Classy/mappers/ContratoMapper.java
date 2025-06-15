@@ -69,7 +69,7 @@ public class ContratoMapper {
                         .map(diaDTO -> {
                             DiasDaAula diaEntity = new DiasDaAula();
                             System.out.println(diaDTO);
-                            diaEntity.setDiaDaSemana(diaDTO.getDia_semana());
+                            diaEntity.setDiaDaSemana(diaDTO.getDiaSemana());
                             diaEntity.setHorario(diaDTO.getHorario());
                             diaEntity.setContrato(contratoEntity);
                             return diaEntity;

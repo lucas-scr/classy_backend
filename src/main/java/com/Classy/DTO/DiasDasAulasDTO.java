@@ -4,6 +4,7 @@ import com.Classy.entitys.Contrato;
 import com.Classy.util.EnumDiaDaSemana;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Enumerated;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class DiasDasAulasDTO{
     @JsonIgnore
     private Long id;
 
+    @JsonProperty("dia_semana")
     private EnumDiaDaSemana diaDaSemana;
 
     @JsonFormat(pattern = "HH:mm:ss")
@@ -31,12 +33,12 @@ public class DiasDasAulasDTO{
         this.id = id;
     }
 
-    public EnumDiaDaSemana getDia_semana() {
+    public EnumDiaDaSemana getDiaSemana() {
         System.out.println("get diaSemana: " + diaDaSemana);
         return diaDaSemana;
     }
 
-    public void setDia_semana(EnumDiaDaSemana dia_semana) {
+    public void setDiaSemana(EnumDiaDaSemana dia_semana) {
         System.out.println("Set diaSemana: " + diaDaSemana);
         this.diaDaSemana = dia_semana;
     }
