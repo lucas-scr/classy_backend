@@ -107,7 +107,7 @@ public class ContratoDTO implements Serializable {
         this.valorPagamento = valorPagamento;
     }
 
-    public boolean isAutorizaUsoDeImagem() {
+    public boolean getAutorizaUsoDeImagem() {
         return autorizaUsoDeImagem;
     }
 

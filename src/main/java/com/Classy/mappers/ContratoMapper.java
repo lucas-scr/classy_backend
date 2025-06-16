@@ -46,16 +46,17 @@ public class ContratoMapper {
         aluno.setNome(contratoDto.getAluno().getNome());
         aluno.setDataNascimento(contratoDto.getAluno().getDataNascimento());
         aluno.setContrato(contratoEntity);
+        contratoEntity.setAluno(aluno);
         contratoEntity.setNomeResponsavel(contratoDto.getNomeResponsavel());
         contratoEntity.setDocumentoResponsavel(contratoDto.getDocumentoResponsavel());
         contratoEntity.setListaDeAulas(converterDiasDaAulaParaEntity(contratoDto, contratoEntity));
         contratoEntity.setListaContatos(converterContatosParaEntity(contratoDto, contratoEntity));
         contratoEntity.setDiasAlternados(contratoDto.isDiasAlternados());
-        contratoEntity.setAluno(aluno);
         contratoEntity.setDiaPagamento(contratoDto.getDiaPagamento());
         contratoEntity.setDataInicio(contratoDto.getDataInicio());
         contratoEntity.setValorPagamento(contratoDto.getValorPagamento());
         contratoEntity.setRessarcimentoEmFeriados(contratoDto.isRessarcimentoEmFeriados());
+        contratoEntity.setAutorizaUsoDeImagem(contratoDto.getAutorizaUsoDeImagem());
         contratoEntity.setSituacao(contratoDto.getSituacoesContrato());
         return contratoEntity;
     }
@@ -70,6 +71,7 @@ public class ContratoMapper {
         entity.setDataInicio(dto.getDataInicio());
         entity.setValorPagamento(dto.getValorPagamento());
         entity.setRessarcimentoEmFeriados(dto.isRessarcimentoEmFeriados());
+        entity.setAutorizaUsoDeImagem(dto.getAutorizaUsoDeImagem());
 
         entity.getListaContatos().clear();
         entity.setListaContatos(converterContatosParaEntity(dto, entity));
