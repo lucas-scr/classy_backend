@@ -17,11 +17,12 @@ public class AlunoMapper {
 
 
     public static Aluno toEntity (AlunoDTO dto){
-        Aluno entity = new Aluno();
-        entity.setContrato(dto.getContrato());
-        entity.setNome(dto.getNome());
-        entity.setDataNascimento(dto.getDataNascimento());
-       entity.setContrato(dto.getContrato());
-        return entity;
+        Aluno aluno = new Aluno();
+        if(dto.getId() != null){
+            aluno.setId(dto.getId());
+        }
+        aluno.setNome(dto.getNome());
+        aluno.setDataNascimento(dto.getDataNascimento());
+        return aluno;
     }
 }

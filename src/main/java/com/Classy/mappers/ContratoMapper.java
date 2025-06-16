@@ -35,9 +35,7 @@ public class ContratoMapper {
         dto.setDataInicio(contrato.getDataInicio());
         dto.setValorPagamento(contrato.getValorPagamento());
         dto.setRessarcimentoEmFeriados(contrato.isRessarcimentoEmFeriados());
-
         dto.setDiasDasAulas(converterDiasDasAulasEntityParaDTO(contrato));
-
         dto.setDataCriacao(contrato.getDataCriacao());
         return dto;
     }
@@ -74,79 +72,37 @@ public class ContratoMapper {
         entity.setRessarcimentoEmFeriados(dto.isRessarcimentoEmFeriados());
 
         entity.getListaContatos().clear();
-        entity.setListaContatos(converterContatosParaAtualizarEntity(dto, entity));
+        entity.setListaContatos(converterContatosParaEntity(dto, entity));
         entity.getListaDeAulas().clear();
-        entity.setListaDeAulas(converterDiasDaAulaParaAtualizarEntity(dto, entity));
-        entity.setAluno(converterAlunoParaEntity(dto.getAluno()));
+        entity.setListaDeAulas(converterDiasDaAulaParaEntity(dto, entity));
+        entity.setAluno(AlunoMapper.toEntity(dto.getAluno()));
         entity.getAluno().setContrato(entity);
-        entity.getListaDeAulas().forEach(diasDaAula -> diasDaAula.setContrato(entity));
 
         return entity;
     }
 
-    private static List<Contato> converterContatosParaAtualizarEntity(ContratoDTO dto, Contrato entity){
+    private static List<Contato> converterContatosParaEntity(ContratoDTO dto, Contrato entity){
 
        return dto.getListaContatos().stream()
                 .map(contatoDTO -> {
-                    Contato contato = new Contato();
-                    if(contatoDTO.getId() != null){
-                        contato.setId(contatoDTO.getId());
-                    }
-                    contato.setTelefone(contatoDTO.getTelefone());
-                    contato.setResponsavel(contatoDTO.getResponsavel());
-                    contato.setPrincipal(contatoDTO.getPrincipal());
+                    Contato contato = ContatoMapper.toEntity(contatoDTO);
                     contato.setContrato(entity);
                     return contato;
                 })
                 .collect(Collectors.toList());
     }
-
-    private static List<Contato> converterContatosParaEntity(ContratoDTO dto, Contrato entity){
-
-        return dto.getListaContatos().stream()
-                .map(contatoDTO -> {
-                    Contato contato = new Contato();
-                    contato.setTelefone(contatoDTO.getTelefone());
-                    contato.setResponsavel(contatoDTO.getResponsavel());
-                    contato.setPrincipal(contatoDTO.getPrincipal());
-                    contato.setContrato(entity);
-                    return contato;
-                })
-                .collect(Collectors.toList());
-    }
-
-    private static List<DiasDaAula> converterDiasDaAulaParaAtualizarEntity(ContratoDTO dto, Contrato entity){
-
-        return dto.getDiasDasAulas().stream()
-                .map(diaDTO -> {
-                    DiasDaAula diaEntity = new DiasDaAula();
-                    System.out.println("Id do DTO" + diaDTO.getId());
-                    if(diaDTO.getId() != null){
-                        System.out.println(diaDTO.getId());
-                        diaEntity.setId(diaDTO.getId());
-                    }
-                    diaEntity.setDiaDaSemana(diaDTO.getDiaSemana());
-                    diaEntity.setHorario(diaDTO.getHorario());
-                    diaEntity.setContrato(entity);
-                    return diaEntity;
-                })
-                .collect(Collectors.toList());
-    }
-
-
 
     private static List<DiasDaAula> converterDiasDaAulaParaEntity(ContratoDTO dto, Contrato entity){
 
         return dto.getDiasDasAulas().stream()
                 .map(diaDTO -> {
-                    DiasDaAula diaEntity = new DiasDaAula();
-                    diaEntity.setDiaDaSemana(diaDTO.getDiaSemana());
-                    diaEntity.setHorario(diaDTO.getHorario());
+                    DiasDaAula diaEntity = DiasDasAulasMapper.toEntity(diaDTO);
                     diaEntity.setContrato(entity);
-                    return diaEntity;
+                    return DiasDasAulasMapper.toEntity(diaDTO);
                 })
                 .collect(Collectors.toList());
     }
+
 
     private static List<ContatoDTO> converterContatosEntityParaDTO (Contrato entity){
         return entity.getListaContatos().stream()
@@ -158,16 +114,5 @@ public class ContratoMapper {
                 .map(DiasDasAulasMapper::toDTO).toList();
     }
 
-
-    private static Aluno converterAlunoParaEntity(AlunoDTO dto){
-        Aluno aluno = new Aluno();
-        if(dto.getId() != null){
-            aluno.setId(dto.getId());
-        }
-        aluno.setNome(dto.getNome());
-        aluno.setDataNascimento(dto.getDataNascimento());
-
-        return aluno;
-    }
 
 }

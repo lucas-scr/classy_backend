@@ -14,9 +14,13 @@ public class DiasDasAulasMapper {
     }
 
     public static DiasDaAula toEntity(DiasDasAulasDTO dto){
-        DiasDaAula entity = new DiasDaAula();
-        entity.setDiaDaSemana(dto.getDiaSemana());
-        entity.setHorario(dto.getHorario());
-        return entity;
+        DiasDaAula diaEntity = new DiasDaAula();
+        if(dto.getId() != null){
+            System.out.println(dto.getId());
+            diaEntity.setId(dto.getId());
+        }
+        diaEntity.setDiaDaSemana(dto.getDiaSemana());
+        diaEntity.setHorario(dto.getHorario());
+        return diaEntity;
     }
 }

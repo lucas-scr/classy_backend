@@ -17,10 +17,12 @@ public class ContatoMapper {
 
     public static Contato toEntity(ContatoDTO dto){
         Contato entity = new Contato();
-        entity.setPrincipal(dto.getPrincipal());
+        if(dto.getId() != null){
+            entity.setId(dto.getId());
+        }
         entity.setTelefone(dto.getTelefone());
         entity.setResponsavel(dto.getResponsavel());
-        entity.setContrato(dto.getContrato());
+        entity.setPrincipal(dto.getPrincipal());
         return entity;
     }
 }
