@@ -12,6 +12,7 @@ public class AlunoMapper {
         dto.setId(aluno.getId());
         dto.setDataNascimento(aluno.getDataNascimento());
         dto.setNome(aluno.getNome());
+        dto.setSexo(aluno.getSexo());
         return dto;
     }
 
@@ -21,6 +22,7 @@ public class AlunoMapper {
         if(dto.getId() != null){
             aluno.setId(dto.getId());
         }
+        aluno.setSexo(dto.getSexo());
         aluno.setNome(dto.getNome());
         aluno.setDataNascimento(dto.getDataNascimento());
         return aluno;

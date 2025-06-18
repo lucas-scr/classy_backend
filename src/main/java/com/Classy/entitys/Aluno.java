@@ -30,6 +30,9 @@ public class Aluno {
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
+    @Column(name = "sexo", nullable = false)
+    private char sexo;
+
 
     public Long getId() {
         return id;
@@ -70,5 +73,13 @@ public class Aluno {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public char getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(char sexo) {
+        this.sexo = sexo;
     }
 }

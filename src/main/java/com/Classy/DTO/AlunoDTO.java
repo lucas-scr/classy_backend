@@ -16,6 +16,10 @@ public class AlunoDTO {
 
     @JsonIgnore
     private Contrato contrato;
+    private char sexo;
+
+
+
     public Long getId() {
         return id;
     }
@@ -45,5 +49,13 @@ public class AlunoDTO {
 
     public void setContrato(Contrato contrato) {
         this.contrato = contrato;
+    }
+
+    public char getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(char sexo) {
+        this.sexo = sexo;
     }
 }
