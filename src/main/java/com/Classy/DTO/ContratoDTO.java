@@ -29,7 +29,7 @@ public class ContratoDTO implements Serializable {
     private boolean ressarcimentoEmFeriados;
     private List<DiasDasAulasDTO> diasDasAulas;
     private LocalDateTime dataCriacao;
-    private EnumSituacoesContrato situacoesContrato;
+    private EnumSituacoesContrato situacao;
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
@@ -143,11 +143,11 @@ public class ContratoDTO implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
-    public EnumSituacoesContrato getSituacoesContrato() {
-        return situacoesContrato;
+    public EnumSituacoesContrato getSituacao() {
+        return situacao;
     }
 
-    public void setSituacoesContrato(EnumSituacoesContrato situacoesContrato) {
-        this.situacoesContrato = situacoesContrato;
+    public void setSituacao(EnumSituacoesContrato situacao) {
+        this.situacao = situacao;
     }
 }

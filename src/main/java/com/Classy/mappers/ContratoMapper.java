@@ -25,8 +25,6 @@ public class ContratoMapper {
                 .map(Contato::getTelefone)
                 .findFirst()
                 .orElse(null);
-
-
         dto.setListaContatos(converterContatosEntityParaDTO(contrato));
         dto.setTelefoneResponsavelPrincipal(telefonePrincipal);
         dto.setDiasAlternados(contrato.isDiasAlternados());
@@ -37,6 +35,7 @@ public class ContratoMapper {
         dto.setRessarcimentoEmFeriados(contrato.isRessarcimentoEmFeriados());
         dto.setDiasDasAulas(converterDiasDasAulasEntityParaDTO(contrato));
         dto.setDataCriacao(contrato.getDataCriacao());
+        dto.setSituacao(contrato.getSituacao());
         return dto;
     }
 
@@ -57,7 +56,7 @@ public class ContratoMapper {
         contratoEntity.setValorPagamento(contratoDto.getValorPagamento());
         contratoEntity.setRessarcimentoEmFeriados(contratoDto.isRessarcimentoEmFeriados());
         contratoEntity.setAutorizaUsoDeImagem(contratoDto.getAutorizaUsoDeImagem());
-        contratoEntity.setSituacao(contratoDto.getSituacoesContrato());
+        contratoEntity.setSituacao(contratoDto.getSituacao());
         return contratoEntity;
     }
 
@@ -72,7 +71,6 @@ public class ContratoMapper {
         entity.setValorPagamento(dto.getValorPagamento());
         entity.setRessarcimentoEmFeriados(dto.isRessarcimentoEmFeriados());
         entity.setAutorizaUsoDeImagem(dto.getAutorizaUsoDeImagem());
-
         entity.getListaContatos().clear();
         entity.setListaContatos(converterContatosParaEntity(dto, entity));
         entity.getListaDeAulas().clear();
@@ -100,11 +98,10 @@ public class ContratoMapper {
                 .map(diaDTO -> {
                     DiasDaAula diaEntity = DiasDasAulasMapper.toEntity(diaDTO);
                     diaEntity.setContrato(entity);
-                    return DiasDasAulasMapper.toEntity(diaDTO);
+                    return diaEntity;
                 })
                 .collect(Collectors.toList());
     }
-
 
     private static List<ContatoDTO> converterContatosEntityParaDTO (Contrato entity){
         return entity.getListaContatos().stream()

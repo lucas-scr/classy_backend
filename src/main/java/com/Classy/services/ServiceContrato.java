@@ -34,9 +34,8 @@ public class ServiceContrato {
         }
 
 
-
-        if(contrato.getSituacoesContrato() == null){
-            contrato.setSituacoesContrato(EnumSituacoesContrato.PENDENTE);
+        if(contrato.getSituacao() == null){
+            contrato.setSituacao(EnumSituacoesContrato.PENDENTE);
         }
 
         // converter o DTO para o Entity
