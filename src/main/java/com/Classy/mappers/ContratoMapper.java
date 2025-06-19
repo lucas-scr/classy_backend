@@ -10,6 +10,7 @@ import com.Classy.entitys.Contrato;
 import com.Classy.entitys.DiasDaAula;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -26,7 +27,11 @@ public class ContratoMapper {
                 .findFirst()
                 .orElse(null);
         dto.setListaContatos(converterContatosEntityParaDTO(contrato));
-        dto.setTelefoneResponsavelPrincipal(telefonePrincipal);
+        Optional<Contato> contatoPrincipal = contrato.getListaContatos().stream()
+                .filter(Contato::getPrincipal)
+                .findFirst();
+
+        contatoPrincipal.ifPresent(c -> dto.setTelefoneResponsavelPrincipal(c.getTelefone()));
         dto.setDiasAlternados(contrato.isDiasAlternados());
         dto.setAluno(AlunoMapper.toDTO(contrato.getAluno()));
         dto.setDiaPagamento(contrato.getDiaPagamento());
@@ -34,6 +39,7 @@ public class ContratoMapper {
         dto.setValorPagamento(contrato.getValorPagamento());
         dto.setRessarcimentoEmFeriados(contrato.isRessarcimentoEmFeriados());
         dto.setDiasDasAulas(converterDiasDasAulasEntityParaDTO(contrato));
+        dto.setAutorizaUsoDeImagem(contrato.getAutorizaUsoDeImagem());
         dto.setDataCriacao(contrato.getDataCriacao());
         dto.setSituacao(contrato.getSituacao());
         return dto;

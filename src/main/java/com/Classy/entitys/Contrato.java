@@ -24,7 +24,6 @@ public class Contrato {
     private Long id;
 
     @Column(name = "nome_responsavel", nullable = false, length = 150)
-    @NotBlank(message = "O nome é obrigatório")
     private String nomeResponsavel;
 
     @Column(name = "documento_responsavel", nullable = false, length = 14)
@@ -46,21 +45,16 @@ public class Contrato {
     private boolean isDiasAlternados;
 
     @Column(name = "data_inicio", nullable = false)
-    @NotNull(message = "Informe a data de início")
     private Date dataInicio;
 
     @Column(name = "dia_pagamento", nullable = false)
-    @NotNull(message = "A data de pagamento é obrigatória")
     private Integer diaPagamento;
 
     @Column(name = "valor_pagamento", nullable = false)
-    @NotNull(message = "O valor do pagamento é obrigatório")
-    @Positive(message = "O valor do pagamento deve ser maior que zero")
     private BigDecimal  valorPagamento;
 
 
     @Column(name = "uso_de_imagem", nullable = false)
-    @NotNull(message = "Informe a autorização de uso de imagem")
     private boolean autorizaUsoDeImagem;
 
     @Column(name = "ressarcimento_feriado", nullable = false)
@@ -91,7 +85,7 @@ public class Contrato {
         this.ressarcimentoEmFeriados = ressarcimentoEmFeriados;
     }
 
-    public boolean isAutorizaUsoDeImagem() {
+    public boolean getAutorizaUsoDeImagem() {
         return autorizaUsoDeImagem;
     }
 

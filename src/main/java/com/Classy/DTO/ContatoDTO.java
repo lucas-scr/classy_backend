@@ -52,4 +52,15 @@ public class ContatoDTO implements Serializable {
     public void setContrato(Contrato contrato) {
         this.contrato = contrato;
     }
+
+    @Override
+    public String toString() {
+        return "ContatoDTO{" +
+                "id=" + id +
+                ", telefone='" + telefone + '\'' +
+                ", responsavel='" + responsavel + '\'' +
+                ", principal=" + principal +
+                ", contrato=" + contrato +
+                '}';
+    }
 }

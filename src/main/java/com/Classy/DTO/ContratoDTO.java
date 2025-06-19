@@ -6,6 +6,10 @@ import com.Classy.entitys.DiasDaAula;
 import com.Classy.util.EnumSituacoesContrato;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.api.client.util.DateTime;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,17 +19,34 @@ import java.util.List;
 
 public class ContratoDTO implements Serializable {
     private Long id;
+
+    @NotBlank(message = "O nome é obrigatório")
     private String nomeResponsavel;
+
     private String documentoResponsavel;
+
+    @Size(max = 11)
+    @NotBlank(message = "O telefone principal é obrigatório")
     private String telefoneResponsavelPrincipal;
+
     private List<ContatoDTO> listaContatos;
     private AlunoDTO aluno;
     private boolean isDiasAlternados;
+
+    @NotNull(message = "Informe a data de início")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataInicio;
+
+    @NotNull(message = "A data de pagamento é obrigatória")
     private Integer diaPagamento;
+
+    @NotNull(message = "O valor do pagamento é obrigatório")
+    @Positive(message = "O valor do pagamento deve ser maior que zero")
     private BigDecimal valorPagamento;
+
+    @NotNull(message = "Informe a autorização de uso de imagem")
     private boolean autorizaUsoDeImagem;
+
     private boolean ressarcimentoEmFeriados;
     private List<DiasDasAulasDTO> diasDasAulas;
     private LocalDateTime dataCriacao;
@@ -64,7 +85,7 @@ public class ContratoDTO implements Serializable {
     }
 
     public void setTelefoneResponsavelPrincipal(String telefoneResponsavelPrincipal) {
-        this.telefoneResponsavelPrincipal = telefoneResponsavelPrincipal;
+        this.telefoneResponsavelPrincipal = telefoneResponsavelPrincipal.replaceAll("\\D", "");
     }
 
     public AlunoDTO getAluno() {
