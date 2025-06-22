@@ -1,11 +1,7 @@
 package com.Classy.DTO;
 
-import com.Classy.entitys.Aluno;
-import com.Classy.entitys.Contato;
-import com.Classy.entitys.DiasDaAula;
 import com.Classy.util.EnumSituacoesContrato;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.google.api.client.util.DateTime;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -14,6 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +20,7 @@ public class ContratoDTO implements Serializable {
     @NotBlank(message = "O nome é obrigatório")
     private String nomeResponsavel;
 
+    @NotNull(message = "O documento é obrigatório")
     private String documentoResponsavel;
 
     @Size(max = 11)
@@ -30,7 +28,10 @@ public class ContratoDTO implements Serializable {
     private String telefoneResponsavelPrincipal;
 
     private List<ContatoDTO> listaContatos;
+
+    @NotNull(message = "O aluno é obrigatório")
     private AlunoDTO aluno;
+
     private boolean isDiasAlternados;
 
     @NotNull(message = "Informe a data de início")
@@ -47,9 +48,16 @@ public class ContratoDTO implements Serializable {
     @NotNull(message = "Informe a autorização de uso de imagem")
     private boolean autorizaUsoDeImagem;
 
+
+    @NotNull(message = "Informe a opção por ressarcimento")
     private boolean ressarcimentoEmFeriados;
+
+    private LocalTime horarioDiasAlternados;
+
     private List<DiasDasAulasDTO> diasDasAulas;
+
     private LocalDateTime dataCriacao;
+
     private EnumSituacoesContrato situacao;
 
     public LocalDateTime getDataCriacao() {
@@ -170,5 +178,14 @@ public class ContratoDTO implements Serializable {
 
     public void setSituacao(EnumSituacoesContrato situacao) {
         this.situacao = situacao;
+    }
+
+
+    public LocalTime getHorarioDiasAlternados() {
+        return horarioDiasAlternados;
+    }
+
+    public void setHorarioDiasAlternados(LocalTime horarioDiasAlternados) {
+        this.horarioDiasAlternados = horarioDiasAlternados;
     }
 }

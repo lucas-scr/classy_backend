@@ -16,7 +16,7 @@ public class DiasDasAulasDTO{
 
     private EnumDiaDaSemana dia;
 
-    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime horario;
 
     @JsonIgnore

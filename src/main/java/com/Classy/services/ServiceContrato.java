@@ -30,7 +30,7 @@ public class ServiceContrato {
         }
 
         if(contrato.getDiasDasAulas().getFirst().getDiaSemana() == null){
-            throw new IllegalArgumentException("O dia ta vazio é obrigatório.");
+            throw new IllegalArgumentException("O dia é obrigatório.");
         }
 
 
@@ -42,7 +42,11 @@ public class ServiceContrato {
         Contrato contratoEntity = ContratoMapper.toEntity(contrato);
 
         //salvar no banco
-        return ContratoMapper.toDTO(contratoRepository.save(contratoEntity));
+        try{
+            return ContratoMapper.toDTO(contratoRepository.save(contratoEntity));
+        }catch (Exception e){
+            throw new RuntimeException("Erro ao salvar o cadastro: " + e.getMessage(), e);
+        }
 
     }
 

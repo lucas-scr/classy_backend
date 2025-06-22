@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,8 +27,7 @@ public class Contrato {
     @Column(name = "nome_responsavel", nullable = false, length = 150)
     private String nomeResponsavel;
 
-    @Column(name = "documento_responsavel", nullable = false, length = 14)
-    @NotNull(message = "O documento é obrigatório")
+    @Column(name = "documento_responsavel", length = 11)
     private String documentoResponsavel;
 
 
@@ -36,7 +36,6 @@ public class Contrato {
     private List<Contato> listaContatos = new ArrayList<>();
 
     @OneToOne(mappedBy = "contrato", cascade = CascadeType.ALL)
-    @NotNull(message = "O aluno é obrigatório")
     private Aluno aluno;
 
 
@@ -58,7 +57,6 @@ public class Contrato {
     private boolean autorizaUsoDeImagem;
 
     @Column(name = "ressarcimento_feriado", nullable = false)
-    @NotNull(message = "Informe a opção por ressarcimento")
     private boolean ressarcimentoEmFeriados;
 
      @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
@@ -71,6 +69,9 @@ public class Contrato {
 
     @Column(name = "situacao", nullable = false)
     private EnumSituacoesContrato situacao;
+
+    @Column(name = "horario", nullable = true)
+    private LocalTime horarioDiasAlternados;
 
 
     public Long getId() {
@@ -175,5 +176,13 @@ public class Contrato {
 
     public void setSituacao(EnumSituacoesContrato situacao) {
         this.situacao = situacao;
+    }
+
+    public LocalTime getHorarioDiasAlternados() {
+        return horarioDiasAlternados;
+    }
+
+    public void setHorarioDiasAlternados(LocalTime horarioDiasAlternados) {
+        this.horarioDiasAlternados = horarioDiasAlternados;
     }
 }
