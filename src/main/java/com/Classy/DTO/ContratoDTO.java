@@ -22,10 +22,9 @@ public class ContratoDTO implements Serializable {
     private String documentoResponsavel;
 
     @Size(max = 11)
-    @NotBlank(message = "O telefone principal é obrigatório")
-    private String telefoneResponsavelPrincipal;
+    @NotBlank(message = "O telefone é obrigatório")
+    private String telefone;
 
-    private List<ContatoDTO> listaContatos = new ArrayList<>();
 
     @NotNull(message = "O aluno é obrigatório")
     private AlunoDTO aluno;
@@ -86,12 +85,12 @@ public class ContratoDTO implements Serializable {
         this.documentoResponsavel = documentoResponsavel;
     }
 
-    public String getTelefoneResponsavelPrincipal() {
-        return telefoneResponsavelPrincipal;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setTelefoneResponsavelPrincipal(String telefoneResponsavelPrincipal) {
-        this.telefoneResponsavelPrincipal = telefoneResponsavelPrincipal.replaceAll("\\D", "");
+    public void setTelefone(String telefone) {
+        this.telefone = telefone.replaceAll("\\D", "");
     }
 
     public AlunoDTO getAluno() {
@@ -158,13 +157,6 @@ public class ContratoDTO implements Serializable {
         this.diasDasAulas = diasDasAulas;
     }
 
-    public List<ContatoDTO> getListaContatos() {
-        return listaContatos;
-    }
-
-    public void setListaContatos(List<ContatoDTO> listaContatos) {
-        this.listaContatos = listaContatos;
-    }
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;

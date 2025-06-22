@@ -32,12 +32,7 @@ public class ServiceContrato {
         if(contrato.getSituacao() == null){
             contrato.setSituacao(EnumSituacoesContrato.PENDENTE);
         }
-
-        // converter o DTO para o Entity
         Contrato contratoEntity = ContratoMapper.toEntity(contrato);
-        if(contrato.getDiasDasAulas().isEmpty()){
-            System.out.println("TEste");
-        }
 
         //salvar no banco
         try{
@@ -62,7 +57,8 @@ public class ServiceContrato {
     @Transactional
     public Optional<ContratoDTO> atualizarContrato(Long id, ContratoDTO contratoatualizadoDto){
         return contratoRepository.findById(id).map(contrato -> {
-            contratoRepository.save(ContratoMapper.toUpdateEntity(contrato, contratoatualizadoDto));
+          ContratoMapper.toUpdateEntity(contrato, contratoatualizadoDto);
+          contratoRepository.save(contrato);
            return ContratoMapper.toDTO(contrato);
         });
     }

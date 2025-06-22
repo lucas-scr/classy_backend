@@ -30,9 +30,8 @@ public class Contrato {
     @Column(name = "documento_responsavel", length = 11)
     private String documentoResponsavel;
 
-
-    @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
-    private List<Contato> listaContatos = new ArrayList<>();
+    @Column(name = "telefone", length = 11)
+    private String telefone;
 
     @OneToOne(mappedBy = "contrato", cascade = CascadeType.ALL)
     private Aluno aluno;
@@ -58,7 +57,7 @@ public class Contrato {
     @Column(name = "ressarcimento_feriado", nullable = false)
     private boolean ressarcimentoEmFeriados;
 
-     @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
+     @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
      private List<DiasDaAula> listaDeAulas = new ArrayList<>();
 
 
@@ -133,14 +132,6 @@ public class Contrato {
         this.aluno = aluno;
     }
 
-    public List<Contato> getListaContatos() {
-        return listaContatos;
-    }
-
-    public void setListaContatos(List<Contato> listaContatos) {
-        this.listaContatos = listaContatos;
-    }
-
     public String getDocumentoResponsavel() {
         return documentoResponsavel;
     }
@@ -183,5 +174,13 @@ public class Contrato {
 
     public void setHorarioDiasAlternados(LocalTime horarioDiasAlternados) {
         this.horarioDiasAlternados = horarioDiasAlternados;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }
