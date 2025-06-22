@@ -68,7 +68,7 @@ public class Contrato {
     @Column(name = "situacao", nullable = false)
     private EnumSituacoesContrato situacao;
 
-    @Column(name = "horario", nullable = true)
+    @Column(name = "horario")
     private LocalTime horarioDiasAlternados;
 
 

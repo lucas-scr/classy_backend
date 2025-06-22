@@ -5,6 +5,7 @@ import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -20,7 +21,7 @@ public class Aluno {
     private String nome;
 
     @Column(name = "data_nascimento", nullable = false)
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     @OneToOne
     @JoinColumn(name = "id_contrato")
@@ -38,11 +39,11 @@ public class Aluno {
         return id;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

@@ -17,8 +17,8 @@ public class ContratoMapper {
         ContratoDTO dto = new ContratoDTO();
         dto.setId(contrato.getId());
         dto.setNomeResponsavel(contrato.getNomeResponsavel());
-
         dto.setDocumentoResponsavel(contrato.getDocumentoResponsavel());
+        dto.setTelefone(contrato.getTelefone());
         dto.setDiasAlternados(contrato.isDiasAlternados());
         dto.setAluno(AlunoMapper.toDTO(contrato.getAluno()));
         dto.setDiaPagamento(contrato.getDiaPagamento());
@@ -29,9 +29,7 @@ public class ContratoMapper {
         dto.setAutorizaUsoDeImagem(contrato.getAutorizaUsoDeImagem());
         dto.setDataCriacao(contrato.getDataCriacao());
         dto.setSituacao(contrato.getSituacao());
-        if(contrato.getHorarioDiasAlternados() != null && contrato.isDiasAlternados()){
-            dto.setHorarioDiasAlternados(contrato.getHorarioDiasAlternados());
-        }
+        dto.setHorarioDiasAlternados(contrato.getHorarioDiasAlternados());
         return dto;
     }
 
@@ -53,6 +51,8 @@ public class ContratoMapper {
         contratoEntity.setSituacao(contratoDto.getSituacao());
         if(contratoDto.getHorarioDiasAlternados() != null && contratoDto.isDiasAlternados()){
             contratoEntity.setHorarioDiasAlternados(contratoDto.getHorarioDiasAlternados());
+        }else {
+            contratoEntity.setHorarioDiasAlternados(null);
         }
         return contratoEntity;
     }
@@ -72,6 +72,8 @@ public class ContratoMapper {
         entity.getAluno().setContrato(entity);
         if(dto.getHorarioDiasAlternados() != null && dto.isDiasAlternados()){
             entity.setHorarioDiasAlternados(dto.getHorarioDiasAlternados());
+        }else {
+            entity.setHorarioDiasAlternados(null);
         }
         return entity;
     }
