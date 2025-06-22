@@ -20,9 +20,9 @@ public class ContratoController {
 
     // Cadastrar contrato
     @PostMapping
-    public ResponseEntity<String> cadastrarContrato(@Valid @RequestBody ContratoDTO contratoDto){
+    public ResponseEntity<ContratoDTO> cadastrarContrato(@Valid @RequestBody ContratoDTO contratoDto){
         ContratoDTO contratoSalvo = contratoService.cadastrarContrato(contratoDto);
-        return ResponseEntity.ok("Contrato cadastrado com sucesso.");
+        return ResponseEntity.ok(contratoSalvo);
     }
 
     @GetMapping
