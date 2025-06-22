@@ -2,15 +2,13 @@ package com.Classy.DTO;
 
 import com.Classy.util.EnumSituacoesContrato;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class ContratoDTO implements Serializable {
     @NotBlank(message = "O telefone principal é obrigatório")
     private String telefoneResponsavelPrincipal;
 
-    private List<ContatoDTO> listaContatos;
+    private List<ContatoDTO> listaContatos = new ArrayList<>();
 
     @NotNull(message = "O aluno é obrigatório")
     private AlunoDTO aluno;
@@ -48,13 +46,13 @@ public class ContratoDTO implements Serializable {
     @NotNull(message = "Informe a autorização de uso de imagem")
     private boolean autorizaUsoDeImagem;
 
-
     @NotNull(message = "Informe a opção por ressarcimento")
     private boolean ressarcimentoEmFeriados;
 
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime horarioDiasAlternados;
 
-    private List<DiasDasAulasDTO> diasDasAulas;
+    private List<DiasDasAulasDTO> diasDasAulas = new ArrayList<>();
 
     private LocalDateTime dataCriacao;
 

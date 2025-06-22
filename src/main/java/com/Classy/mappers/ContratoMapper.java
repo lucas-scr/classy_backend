@@ -10,6 +10,7 @@ import com.Classy.entitys.Contrato;
 import com.Classy.entitys.DiasDaAula;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,9 +50,7 @@ public class ContratoMapper {
 
     public static Contrato toEntity(ContratoDTO contratoDto) {
         Contrato contratoEntity = new Contrato();
-        Aluno aluno = new Aluno();
-        aluno.setNome(contratoDto.getAluno().getNome());
-        aluno.setDataNascimento(contratoDto.getAluno().getDataNascimento());
+        Aluno aluno = AlunoMapper.toEntity(contratoDto.getAluno());
         aluno.setContrato(contratoEntity);
         contratoEntity.setAluno(aluno);
         contratoEntity.setNomeResponsavel(contratoDto.getNomeResponsavel());
@@ -96,10 +95,21 @@ public class ContratoMapper {
 
     private static List<Contato> converterContatosParaEntity(ContratoDTO dto, Contrato entity){
 
+        if(dto.getListaContatos().isEmpty()){
+            ContatoDTO contatoPrincipal = new ContatoDTO();
+            contatoPrincipal.setResponsavel(dto.getNomeResponsavel());
+            contatoPrincipal.setTelefone(dto.getTelefoneResponsavelPrincipal());
+            dto.getListaContatos().add(contatoPrincipal);
+            System.out.println("Entro no cadastro de contato principal");
+        }
+
        return dto.getListaContatos().stream()
                 .map(contatoDTO -> {
                     Contato contato = ContatoMapper.toEntity(contatoDTO);
                     contato.setContrato(entity);
+                    if(Objects.equals(contato.getTelefone(), dto.getTelefoneResponsavelPrincipal())){
+                        contato.setPrincipal(true);
+                    }
                     return contato;
                 })
                 .collect(Collectors.toList());

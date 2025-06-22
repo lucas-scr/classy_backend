@@ -40,6 +40,9 @@ public class ServiceContrato {
 
         // converter o DTO para o Entity
         Contrato contratoEntity = ContratoMapper.toEntity(contrato);
+        if(contrato.getDiasDasAulas().isEmpty()){
+            System.out.println("TEste");
+        }
 
         //salvar no banco
         try{

@@ -32,7 +32,6 @@ public class Contrato {
 
 
     @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
-    @NotEmpty
     private List<Contato> listaContatos = new ArrayList<>();
 
     @OneToOne(mappedBy = "contrato", cascade = CascadeType.ALL)

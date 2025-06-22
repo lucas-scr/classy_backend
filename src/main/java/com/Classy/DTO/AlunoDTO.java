@@ -3,6 +3,7 @@ package com.Classy.DTO;
 import com.Classy.entitys.Contrato;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -16,8 +17,9 @@ public class AlunoDTO {
 
     @JsonIgnore
     private Contrato contrato;
-    private char sexo;
 
+    @NotNull(message = "Informe o sexo da criança")
+    private char sexo;
 
 
     public Long getId() {
