@@ -16,11 +16,6 @@ public class AtividadeMapper {
         atividadeDTO.setArquivo(atividade.getArquivo());
         atividadeDTO.setDataCriacao(atividade.getDataCriacao());
         atividadeDTO.setMateria(atividade.getMateria());
-//        if(atividade.getMateria() != null){
-//            atividadeDTO.setMateriaId(atividade.getMateria().getId());
-//        }else {
-//            atividadeDTO.setMateriaId(null);
-//        }
         return atividadeDTO;
     }
 
@@ -32,29 +27,16 @@ public class AtividadeMapper {
         atividade.setArquivo(atividadeDTO.getArquivo());
         atividade.setUrl(atividadeDTO.getUrl());
         atividade.setMateria(atividadeDTO.getMateria());
-//        if(atividadeDTO.getMateriaId() != null){
-//            Materia materia = new Materia();
-//            materia.setId(atividadeDTO.getMateriaId());
-//            atividade.setMateria(materia);
-//        }else {
-//            atividade.setMateria(null);
-//        }
         return  atividade;
     }
 
     public static void updateEntityFromDTO(AtividadeDTO atividadeDTO, Atividade atividade){
         if (atividadeDTO == null || atividade == null) return;
+        atividade.setCodigo(atividadeDTO.getCodigo());
         atividade.setDescricao(atividadeDTO.getDescricao());
         atividade.setArquivo(atividadeDTO.getArquivo());
         atividade.setUrl(atividadeDTO.getUrl());
         atividade.setMateria(atividadeDTO.getMateria());
-//        if(atividadeDTO.getMateriaId() != null){
-//            Materia materia = new Materia();
-//            materia.setId(atividadeDTO.getMateriaId());
-//            atividade.setMateria(materia);
-//        }else {
-//            atividade.setMateria(null);
-//        }
     }
 
 }

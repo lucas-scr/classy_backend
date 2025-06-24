@@ -45,9 +45,9 @@ public class AtividadeController {
             }
             AtividadeDTO atividadeSalva = serviceAtividade.cadastrarAtividade(atividadeDTO);
             URI location = URI.create("/api/atividades/" + atividadeSalva.getId());
-            return ResponseEntity.created(location).body("Atividade salva com sucesso.");
+            return ResponseEntity.created(location).body("{\"mensagem\": \"Atividade salva com sucesso.\"}");
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao proceso o arquivo.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar o arquivo.");
         }
 
     }
@@ -73,14 +73,19 @@ public class AtividadeController {
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateAtividade(
             @PathVariable Long id,
-            @RequestPart("dados") @Valid @RequestBody AtividadeDTO atividadeDTO,
+            @RequestPart("dados") @Valid AtividadeDTO atividadeDTO,
             @RequestPart(value = "arquivo", required = false) MultipartFile arquivo){
 
 
         try {
             byte[] arquivoEmBytes = null;
-            if (arquivo != null && arquivo.isEmpty()){
+            if (arquivo != null && !arquivo.isEmpty()){
                 arquivoEmBytes = arquivo.getBytes();
+                if (arquivoEmBytes.length > 5 * 1024 * 1024) { // 5MB em bytes
+                    return ResponseEntity
+                            .status(HttpStatus.BAD_REQUEST)
+                            .body("Arquivo muito grande, máximo permitido é 5 MB.");
+                }
                 atividadeDTO.setArquivo(arquivoEmBytes);
             }
             AtividadeDTO atividadeAtualizada = serviceAtividade.atualizarAtividade(id, atividadeDTO);
