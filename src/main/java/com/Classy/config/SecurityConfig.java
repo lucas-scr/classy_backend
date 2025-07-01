@@ -29,8 +29,8 @@ public class SecurityConfig{
                                 "/api/contratos/**",
                                 "/api/materias/",
                                 "/api/materias/**",
-                                "/api/ativdades/",
-                                "/api/ativdades/**"
+                                "/api/atividades/",
+                                "/api/atividades/**"
                         ).hasRole("USER")
                         .anyRequest().authenticated()
                 )

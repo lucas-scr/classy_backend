@@ -4,8 +4,10 @@ import com.Classy.DTO.AtividadeDTO;
 import com.Classy.entitys.Atividade;
 import com.Classy.mappers.AtividadeMapper;
 import com.Classy.services.ServiceAtividade;
+import com.Classy.util.ArquivoProcessador;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,29 +29,21 @@ public class AtividadeController {
     @Autowired
     private ServiceAtividade serviceAtividade;
 
+    @Autowired
+    private ArquivoProcessador processadorArquivo;
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> postAtividade(
             @RequestPart("dados") @Valid AtividadeDTO atividadeDTO,
-            @RequestPart(value = "arquivo", required = false) MultipartFile arquivo){
+            @RequestPart(value = "arquivo", required = false) MultipartFile arquivo) throws IOException {
 
-        try {
-            byte[] arquivoEmBytes = null;
-            if (arquivo != null && !arquivo.isEmpty()){
-                arquivoEmBytes = arquivo.getBytes();
-                if (arquivoEmBytes.length > 5 * 1024 * 1024) { // 5MB em bytes
-                    return ResponseEntity
-                            .status(HttpStatus.BAD_REQUEST)
-                            .body("Arquivo muito grande, máximo permitido é 5 MB.");
-                }
-                atividadeDTO.setArquivo(arquivoEmBytes);
-            }
-            AtividadeDTO atividadeSalva = serviceAtividade.cadastrarAtividade(atividadeDTO);
-            URI location = URI.create("/api/atividades/" + atividadeSalva.getId());
-            return ResponseEntity.created(location).body("{\"mensagem\": \"Atividade salva com sucesso.\"}");
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar o arquivo.");
+        if(arquivo != null && !arquivo.isEmpty()){
+            atividadeDTO.setArquivo(processadorArquivo.converterMultipartParaBytes(arquivo));
+            atividadeDTO.setExtensao(processadorArquivo.extrairExtensao(arquivo.getContentType()));
         }
-
+        AtividadeDTO atividadeSalva = serviceAtividade.cadastrarAtividade(atividadeDTO);
+        URI location = URI.create("/api/atividades/" + atividadeSalva.getId());
+        return ResponseEntity.created(location).body("{\"mensagem\": \"Atividade salva com sucesso.\"}");
     }
 
     @GetMapping
@@ -62,38 +56,42 @@ public class AtividadeController {
         return serviceAtividade.findById(id);
     }
 
-    @DeleteMapping("/id")
-    public ResponseEntity<Map<String, String>> deleteAtividade(@PathVariable Long id){
-        serviceAtividade.deletarAtividade(id);
-        Map<String, String> resposta = new HashMap<>();
-        resposta.put("Mensagem","Atividade removida com sucesso.");
-        return ResponseEntity.ok(resposta);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAtividade(@PathVariable Long id){
+
+        try{
+            serviceAtividade.deletarAtividade(id);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar atividade" + e.getMessage());
+        }
+        return ResponseEntity.ok("{\"mensagem\": \"Atividade removida com sucesso.\"}");
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateAtividade(
             @PathVariable Long id,
             @RequestPart("dados") @Valid AtividadeDTO atividadeDTO,
-            @RequestPart(value = "arquivo", required = false) MultipartFile arquivo){
+            @RequestPart(value = "arquivo", required = false) MultipartFile arquivo) throws IOException {
 
-
-        try {
-            byte[] arquivoEmBytes = null;
-            if (arquivo != null && !arquivo.isEmpty()){
-                arquivoEmBytes = arquivo.getBytes();
-                if (arquivoEmBytes.length > 5 * 1024 * 1024) { // 5MB em bytes
-                    return ResponseEntity
-                            .status(HttpStatus.BAD_REQUEST)
-                            .body("Arquivo muito grande, máximo permitido é 5 MB.");
-                }
-                atividadeDTO.setArquivo(arquivoEmBytes);
-            }
-            AtividadeDTO atividadeAtualizada = serviceAtividade.atualizarAtividade(id, atividadeDTO);
-            return ResponseEntity.ok("Atividade atualizada com sucesso!");
-
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar o arquivo.");
+        if(arquivo != null && !arquivo.isEmpty()){
+            atividadeDTO.setArquivo(processadorArquivo.converterMultipartParaBytes(arquivo));
+            atividadeDTO.setExtensao(processadorArquivo.extrairExtensao(arquivo.getContentType()));
         }
+
+        serviceAtividade.atualizarAtividade(id, atividadeDTO);
+            return ResponseEntity.ok("{\"mensagem\": \"Atividade atualizada com sucesso!\"}");
     }
 
+    @GetMapping("/{id}/arquivo")
+    public ResponseEntity<byte[]> downloadArquivo(@PathVariable Long id){
+        Atividade atividade = AtividadeMapper.toEntity(serviceAtividade.findById(id));
+        System.out.println(processadorArquivo.gerarContentType(atividade.getExtensao()));
+        System.out.println("Arquivo null? " + (atividade.getArquivo() == null));
+        System.out.println("Tamanho do arquivo: " + (atividade.getArquivo() != null ? atividade.getArquivo().length : "nulo"));
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(processadorArquivo.gerarContentType(atividade.getExtensao())))
+                .header(HttpHeaders.CONTENT_DISPOSITION,  "attachment; filename=\"" + atividade.getCodigo() + "\"")
+                .body(atividade.getArquivo());
+    }
 }

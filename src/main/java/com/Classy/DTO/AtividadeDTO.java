@@ -1,6 +1,8 @@
 package com.Classy.DTO;
 
 import com.Classy.entitys.Materia;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.sql.Blob;
@@ -9,12 +11,16 @@ import java.time.LocalDateTime;
 public class AtividadeDTO implements Serializable {
 
     private Long id;
+    @NotNull(message = "Informe o código da atividade")
     private String codigo;
+    @NotNull(message = "Informe a descrição da atividade")
     private String descricao;
-    private byte [] arquivo;
+    private byte[] arquivo;
     private String url;
+    @NotNull(message = "Informe a matéria da atividade")
     private Materia materia;
     private LocalDateTime dataCriacao;
+    private String extensao;
 
     public Long getId() {
         return id;
@@ -37,7 +43,6 @@ public class AtividadeDTO implements Serializable {
     }
 
     public void setArquivo(byte[] arquivo) {
-
         this.arquivo = arquivo;
     }
 
@@ -71,5 +76,13 @@ public class AtividadeDTO implements Serializable {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public String getExtensao() {
+        return extensao;
+    }
+
+    public void setExtensao(String extensao) {
+        this.extensao = extensao;
     }
 }

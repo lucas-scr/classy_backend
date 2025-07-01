@@ -43,6 +43,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(RequisicaoInvalidaException.class)
+    public  ResponseEntity<Map<String, String>> RequisicaoInvalidaException (RequisicaoInvalidaException ex){
+        Map<String, String> erro = new HashMap<>();
+        erro.put("erro", ex.getMessage());
+        erro.put("timestamp", LocalDateTime.now().toString());
+        return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
+    }
+
+
     @ExceptionHandler(EntityNotFoundException.class)
     public  ResponseEntity<Map<String, String>> handleEntityNotFoundException(EntityNotFoundException ex){
         Map<String, String> erro = new HashMap<>();

@@ -13,9 +13,10 @@ public class AtividadeMapper {
         atividadeDTO.setCodigo(atividade.getCodigo());
         atividadeDTO.setDescricao(atividade.getDescricao());
         atividadeDTO.setId(atividade.getId());
-        atividadeDTO.setArquivo(atividade.getArquivo());
         atividadeDTO.setDataCriacao(atividade.getDataCriacao());
         atividadeDTO.setMateria(atividade.getMateria());
+        atividadeDTO.setArquivo(atividade.getArquivo());
+        atividadeDTO.setExtensao(atividade.getExtensao());
         return atividadeDTO;
     }
 
@@ -27,6 +28,7 @@ public class AtividadeMapper {
         atividade.setArquivo(atividadeDTO.getArquivo());
         atividade.setUrl(atividadeDTO.getUrl());
         atividade.setMateria(atividadeDTO.getMateria());
+        atividade.setExtensao(atividadeDTO.getExtensao());
         return  atividade;
     }
 
@@ -36,7 +38,11 @@ public class AtividadeMapper {
         atividade.setDescricao(atividadeDTO.getDescricao());
         atividade.setArquivo(atividadeDTO.getArquivo());
         atividade.setUrl(atividadeDTO.getUrl());
+        atividade.setExtensao(atividadeDTO.getExtensao());
         atividade.setMateria(atividadeDTO.getMateria());
     }
+
+
+
 
 }
